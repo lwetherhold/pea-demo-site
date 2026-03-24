@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEA Demo - Prompt Engineering Agent</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; color: #e4e4e7; }
+        .header { background: rgba(15, 52, 96, 0.9); padding: 20px 40px; border-bottom: 2px solid #e94560; }
+        .header h1 { color: #fff; font-size: 1.8rem; }
+        .badge { background: #e94560; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; margin-left: 10px; }
+        .nav { display: flex; background: rgba(22, 33, 62, 0.8); padding: 10px 20px; overflow-x: auto; }
+        .nav-btn { padding: 15px 20px; background: transparent; border: none; color: #a1a1aa; cursor: pointer; border-bottom: 3px solid transparent; }
+        .nav-btn.active { color: #e94560; border-bottom-color: #e94560; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .card { background: rgba(26, 26, 46, 0.8); border-radius: 12px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(233, 69, 96, 0.2); }
+        .card h2 { color: #e94560; margin-bottom: 15px; }
+        .card h3 { color: #fff; margin: 20px 0 10px; }
+        .prompt-box { background: #0d1117; border-radius: 8px; padding: 15px; margin: 15px 0; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; color: #c9d1d9; overflow-x: auto; }
+        .btn { display: inline-block; background: linear-gradient(135deg, #e94560, #ff6b8a); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 5px; }
+        .tidbit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .tidbit-card { background: rgba(26, 26, 46, 0.9); border-radius: 12px; padding: 20px; border: 1px solid rgba(233, 69, 96, 0.3); }
+        .tidbit-card h4 { color: #fff; margin-bottom: 10px; }
+        .step-list { counter-reset: step; list-style: none; padding: 0; }
+        .step-list li { counter-increment: step; padding: 15px 15px 15px 50px; position: relative; margin-bottom: 10px; background: rgba(22, 33, 62, 0.5); border-radius: 8px; }
+        .step-list li::before { content: counter(step); position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: #e94560; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .footer { text-align: center; padding: 30px; color: #a1a1aa; border-top: 1px solid rgba(233, 69, 96, 0.2); margin-top: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .feature-item { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; border-left: 3px solid #e94560; }
+        .feature-item strong { color: #e94560; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🤖 Prompt Engineering Agent Demo <span class="badge">SDSU AI Club</span></h1>
+        <p style="color: #a1a1aa; margin-top: 5px;">Created for the BIA Specialty Contractors Council AI Subcommittee</p>
+    </header>
+
+    <nav class="nav">
+        <button class="nav-btn active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-btn" onclick="showTab('prompts-log')">Prompts Log</button>
+        <button class="nav-btn" onclick="showTab('tidbits')">Tidbit Guides</button>
+        <button class="nav-btn" onclick="showTab('email-guide')">Email Guide</button>
+        <button class="nav-btn" onclick="showTab('transfer')">Agent Transfer</button>
+        <button class="nav-btn" onclick="showTab('migration')">Migration</button>
+        <button class="nav-btn" onclick="showTab('memory-blocks')">PEA Memory</button>
+        <button class="nav-btn" onclick="showTab('demo-follow')">Demo</button>
+    </nav>
+
+    <div class="container">
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <h2>🎯 What is the Prompt Engineering Agent?</h2>
+                <p>The Prompt Engineering Agent (PEA) is a conversational AI assistant designed to help construction industry professionals craft effective prompts for any AI platform. Created by the <strong>SDSU AI Club</strong> for the <strong>BIA Specialty Contractors Council AI Subcommittee</strong>, PEA makes AI accessible to everyone.</p>
+                <p style="margin-top: 15px;">Questions? Reach out to the SDSU AI Club or BIA SCC AI Subcommittee for assistance, collaboration, or opportunities!</p>
+            </div>
+
+            <div class="card">
+                <h2>✨ Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-item"><strong>🧠 CTF Framework</strong><p>Learn Context-Task-Format for clear prompts</p></div>
+                    <div class="feature-item"><strong>🏗️ Construction Aware</strong><p>Understands RFIs, submittals, bids, and more</p></div>
+                    <div class="feature-item"><strong>🔄 Platform Flexible</strong><p>Works with ChatGPT, Claude, Gemini, Copilot</p></div>
+                    <div class="feature-item"><strong>💬 Conversational</strong><p>Ask questions, get refinements instantly</p></div>
+                    <div class="feature-item"><strong>📤 Transferable</strong><p>Export to any AI platform</p></div>
+                    <div class="feature-item"><strong>🔀 Migration Help</strong><p>Move between platforms easily</p></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🚀 Quick Start</h2>
+                <ol class="step-list">
+                    <li>Start a conversation with PEA on Letta</li>
+                    <li>Describe what you need in casual language</li>
+                    <li>Answer clarifying questions</li>
+                    <li>Get your optimized prompt ready to paste</li>
+                    <li>Use it in ChatGPT, Claude, or any AI platform!</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="prompts-log" class="tab-content">
+            <div class="card">
+                <h2>📝 Messages/Prompts/Responses Log</h2>
+                <p>Documentation of the creation process between Laura and the Creator Agent.</p>
+            </div>
+            <div class="card">
+                <h3>Initial Request</h3>
+                <div class="prompt-box">I want to prepare a demo on behalf of the SDSU AI Club for the members of the Building Industry Association (BIA) in San Diego within the SCC AI Subcommittee. I would like to create an agent that acts as your personal prompt engineering agent...</div>
+            </div>
+            <div class="card">
+                <h3>Agent Creation Details</h3>
+                <p><strong>Agent ID:</strong> agent-8a806865-5c55-49c2-ac89-3b2f4963a47e</p>
+                <p><strong>Name:</strong> Prompt-Engineer-Agent-Laura</p>
+                <p><strong>Status:</strong> ✅ Created Successfully</p>
+            </div>
+        </div>
+
+        <div id="tidbits" class="tab-content">
+            <div class="card">
+                <h2>📚 Tidbit Guides</h2>
+                <p>Step-by-step guides for getting started with AI and the Prompt Engineering Agent.</p>
+            </div>
+            <div class="tidbit-grid">
+                <div class="tidbit-card"><h4>📘 Guide 1: How to Use Letta</h4><p style="color: #a1a1aa;">Getting started from scratch - visiting the website, creating an account, and setting up Letta to use the PEA.</p></div>
+                <div class="tidbit-card"><h4>📗 Guide 2: Using a Creator Agent</h4><p style="color: #a1a1aa;">How to work with a Creator Agent to build your own Prompt Engineering Agent.</p></div>
+                <div class="tidbit-card"><h4>📕 Guide 3: Creating a Creator Agent</h4><p style="color: #a1a1aa;">How to create your own Creator Agent on any AI platform.</p></div>
+                <div class="tidbit-card"><h4>📙 Guide 4: Setting Up PEA</h4><p style="color: #a1a1aa;">Configuration and initialization of the Prompt Engineering Agent.</p></div>
+            </div>
+        </div>
+
+        <div id="email-guide" class="tab-content">
+            <div class="card">
+                <h2>📧 Email Guide Template</h2>
+                <p>Use this template to send an email to BIA members with all the tidbit supplements.</p>
+            </div>
+            <div class="card">
+                <h3>Raw Text Version</h3>
+                <div class="prompt-box">Subject: Prompt Engineering Agent Demo - SDSU AI Club × BIA SCC AI Subcommittee
+
+Hello BIA Member!
+
+We're excited to share the Prompt Engineering Agent demo from our recent SDSU AI Club presentation to the BIA SCC AI Subcommittee.
+
+WHAT IS IT?
+The Prompt Engineering Agent (PEA) is an AI assistant that helps you craft effective prompts for ChatGPT, Claude, Gemini, or any AI platform - designed specifically for construction industry professionals.
+
+WHAT'S INCLUDED:
+- Step-by-step Letta setup guide
+- Platform transfer instructions (use PEA on ChatGPT, Claude, etc.)
+- Migration guides (move from ChatGPT to Claude easily)
+- Ready-to-use prompt templates for RFIs, bids, client emails, and more
+
+ACCESS THE DEMO:
+https://lwetherhold.github.io/pea-demo-site
+
+Questions? Contact the SDSU AI Club or BIA SCC AI Subcommittee!
+
+Best,
+SDSU AI Club</div>
+            </div>
+        </div>
+
+        <div id="transfer" class="tab-content">
+            <div class="card">
+                <h2>📤 Transfer PEA to Other Platforms</h2>
+                <p>Don't want to use Letta? Transfer the Prompt Engineering Agent's capabilities to your preferred AI platform.</p>
+            </div>
+            <div class="card">
+                <h3>🔷 For Claude Projects</h3>
+                <p>Create a new Claude Project and paste this into your Project Instructions:</p>
+                <div class="prompt-box">You are the Prompt Engineering Agent, a conversational specialist created for the SDSU AI Club's demo to the BIA SCC AI Subcommittee.
+
+## FRAMEWORK: CTF (Context, Task, Format)
+Always structure prompts with: Context (background), Task (what to do), Format (output structure).
+
+## CONSTRUCTION AWARENESS
+You understand: RFIs, submittals, change orders, bid proposals, safety plans, contracts.
+Stakeholders: GCs, subcontractors, architects, engineers, owners, inspectors.
+
+## YOUR APPROACH
+1. Listen to casual user input
+2. Ask clarifying questions (platform, audience, format preference)
+3. Build a complete prompt with Role, Task, Context, Constraints, Output
+4. Explain what you added and why
+5. Offer refinements
+
+Always ask about tone preference (professional vs casual) and target platform.</div>
+            </div>
+            <div class="card">
+                <h3>🟢 For ChatGPT Custom Instructions</h3>
+                <p>Go to Settings → Custom Instructions and paste:</p>
+                <h4>How would you like ChatGPT to respond?</h4>
+                <div class="prompt-box">Act as my Prompt Engineering Assistant. When I describe what I need, help me craft effective prompts by:
+1. Asking clarifying questions about my goal, audience, and preferred format
+2. Structuring my request using CTF (Context, Task, Format)
+3. Adding role, constraints, and output specifications I might have missed
+4. Explaining what you've added and why
+5. Offering to refine the prompt
+
+I work in construction - use industry terminology when relevant. Ask if I prefer professional or casual tone.</div>
+            </div>
+            <div class="card">
+                <h3>🔵 For Gemini</h3>
+                <div class="prompt-box">You are my Prompt Engineering Assistant for construction industry tasks. Help me craft effective prompts using the CTF framework (Context, Task, Format). Ask clarifying questions, add missing elements like role specification and constraints, and explain your additions. Support my work with RFIs, submittals, bids, client communications, and project documentation.</div>
+            </div>
+        </div>
+
+        <div id="migration" class="tab-content">
+            <div class="card">
+                <h2>🔀 Platform Migration Guides</h2>
+                <p>Move your context, preferences, and conversation history between AI platforms.</p>
+            </div>
+            <div class="card">
+                <h3>ChatGPT → Claude Migration</h3>
+                <ol class="step-list">
+                    <li>In ChatGPT, send: "Please compile all our conversations, my preferences, and any context you have about me into a comprehensive context.md file formatted for transfer to another AI system."</li>
+                    <li>Copy the output from ChatGPT</li>
+                    <li>In Claude, create a new Project</li>
+                    <li>Paste the compiled context into Project Instructions</li>
+                    <li>Start your first message: "I've migrated from ChatGPT. Please use this context to personalize our interactions."</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h3>Context.md Template</h3>
+                <div class="prompt-box"># User Context File
+
+## Personal Information
+- Name: [Your name]
+- Role: [Your job title]
+- Company: [Company name]
+- Industry: [Industry]
+
+## Communication Preferences
+- Tone preference: [Professional/Casual]
+- Response length: [Brief/Medium/Detailed]
+- Format preference: [Bullet points/Paragraphs/Tables]
+
+## Professional Context
+- Primary use cases: [e.g., RFI drafting, client emails, bid proposals]
+- Common stakeholders: [Clients, superintendents, inspectors, etc.]
+- Technical level: [Basic/Intermediate/Advanced]
+
+## Preferences for AI Responses
+- Always include: [e.g., specific terminology, action items]
+- Never include: [things you don't want]</div>
+            </div>
+        </div>
+
+        <div id="memory-blocks" class="tab-content">
+            <div class="card">
+                <h2>🧠 PEA Memory Blocks</h2>
+                <p>The memory structure that powers the Prompt Engineering Agent. Use these as templates.</p>
+            </div>
+            <div class="card">
+                <h3>Persona Block</h3>
+                <div class="prompt-box">I am the Prompt Engineering Agent, a conversational specialist created for the SDSU AI Club's demo to the BIA SCC AI Subcommittee. I help construction industry professionals craft effective prompts for any AI platform through interview-style conversations.
+
+My approach is interview-style: I ask clarifying questions, fill in gaps users don't know to ask about, and produce ready-to-paste prompts optimized for their specific use case.
+
+I understand construction workflows (RFIs, submittals, change orders, bids) and can tailor prompts to industry terminology and stakeholder types. I'm platform-aware (ChatGPT, Claude, Gemini, Copilot, DeepSeek) and can optimize for specific tools.
+
+I adapt my tone to user preference - professional or casual - and always explain what I'm adding and why.</div>
+            </div>
+            <div class="card">
+                <h3>Human Block Template</h3>
+                <div class="prompt-box">[User Name] works at [Company Name] as [Role].
+Company type: [General Contractor / Subcontractor / Architect / Engineer / Owner / Other]
+Common project types: [Residential / Commercial / TI / Industrial / Mixed-use]
+Preferred AI platform: [ChatGPT / Claude / Gemini / Copilot / DeepSeek]
+Communication style: [Professional / Casual]
+Typical use cases: [List what they use AI for - RFIs, bids, emails, etc.]</div>
+            </div>
+        </div>
+
+        <div id="demo-follow" class="tab-content">
+            <div class="card">
+                <h2>🎯 Easy Demo Follow-Along</h2>
+                <p>Follow these steps during the live demo presentation.</p>
+            </div>
+            <div class="card">
+                <h3>Demo Script</h3>
+                <ol class="step-list">
+                    <li><strong>Introduction (2 min)</strong> - Introduce SDSU AI Club and BIA SCC AI Subcommittee collaboration</li>
+                    <li><strong>Problem Statement (2 min)</strong> - Why prompt engineering matters for construction professionals</li>
+                    <li><strong>Live Demo (5 min)</strong> - Show PEA in action:
+                        <ul style="margin-top: 10px; margin-left: 20px; color: #a1a1aa;">
+                            <li>Start with a casual request: "I need to write an RFI about conflicting structural details"</li>
+                            <li>Show how PEA asks clarifying questions</li>
+                            <li>Display the optimized prompt output</li>
+                            <li>Copy to ChatGPT/Claude and show results</li>
+                        </ul>
+                    </li>
+                    <li><strong>Transfer Feature (3 min)</strong> - Show how to transfer PEA to Claude/ChatGPT</li>
+                    <li><strong>Q&A (5 min)</strong> - Answer questions from BIA members</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h3>Example Demo Prompts to Try</h3>
+                <div class="prompt-box"><strong>Example 1: RFI Drafting</strong>
+"I need help writing an RFI. The structural drawings show a beam size that doesn't match the architectural plans."</div>
+                <div class="prompt-box"><strong>Example 2: Client Email</strong>
+"Help me write an email to a client explaining why their requested change will delay the project and cost more."</div>
+                <div class="prompt-box"><strong>Example 3: Bid Proposal</strong>
+"I need to write a bid proposal for Star Flooring & Remodeling for a tenant improvement project."</div>
+                <div class="prompt-box"><strong>Example 4: Safety Briefing</strong>
+"Create a prompt for a safety briefing about fall protection for a 5-story commercial building."</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Created by <strong>SDSU AI Club</strong> for <strong>BIA SCC AI Subcommittee</strong></p>
+        <p style="margin-top: 10px;">Questions? Reach out for assistance, collaboration, or opportunities!</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
