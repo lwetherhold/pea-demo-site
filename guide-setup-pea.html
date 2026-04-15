@@ -13,12 +13,34 @@
         .badge { background: #e94560; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
         .card { background: rgba(26, 26, 46, 0.8); border-radius: 12px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(233, 69, 96, 0.2); }
         .card h2 { color: #e94560; margin-bottom: 15px; }
+        .card h3 { color: #fff; margin: 20px 0 10px; }
+        .card h4 { color: #e94560; margin: 15px 0 8px; }
         .step-list { counter-reset: step; list-style: none; padding: 0; }
         .step-list li { counter-increment: step; padding: 15px 15px 15px 50px; position: relative; margin-bottom: 10px; background: rgba(22, 33, 62, 0.5); border-radius: 8px; }
         .step-list li::before { content: counter(step); position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: #e94560; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .prompt-box { background: #0d1117; border-radius: 8px; padding: 15px; margin: 15px 0; font-family: monospace; font-size: 0.85rem; color: #c9d1d9; }
+        .prompt-box { background: #0d1117; border-radius: 8px; padding: 15px; margin: 15px 0; font-family: monospace; font-size: 0.85rem; color: #c9d1d9; white-space: pre-wrap; }
         .btn { display: inline-block; background: linear-gradient(135deg, #e94560, #ff6b8a); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 5px; }
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
+        .sidebar { background: rgba(22, 33, 62, 0.5); border-radius: 8px; padding: 15px; margin: 15px 0; }
+        .sidebar h4 { color: #e94560; margin-bottom: 10px; }
+        .warning { background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+        .tip { background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+        .toc { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .toc h3 { color: #e94560; margin-bottom: 10px; }
+        .toc ul { list-style: none; }
+        .toc li { padding: 5px 0; }
+        .toc a { color: #a1a1aa; text-decoration: none; }
+        .toc a:hover { color: #e94560; }
+        .memory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 10px 0; }
+        .memory-block { background: rgba(13, 17, 23, 0.8); border: 1px solid rgba(233, 69, 96, 0.2); border-radius: 8px; padding: 12px; }
+        .memory-block h5 { color: #e94560; margin-bottom: 5px; font-size: 0.9rem; }
+        .memory-block p { color: #a1a1aa; font-size: 0.8rem; line-height: 1.4; }
+        .category-header { background: rgba(233, 69, 96, 0.2); padding: 10px 15px; border-radius: 8px 8px 0 0; margin-top: 15px; }
+        .category-header h4 { color: #e94560; margin: 0; }
+        .use-case-card { background: rgba(22, 33, 62, 0.5); border-radius: 8px; padding: 15px; margin: 10px 0; }
+        .use-case-card h4 { color: #fff; margin-bottom: 8px; }
+        .troubleshoot-item { background: rgba(255, 193, 7, 0.05); border-left: 2px solid #ffc107; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+        .troubleshoot-item h4 { color: #ffc107; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -26,53 +48,470 @@
         <div class="header">
             <span class="badge">Resource Guide 4 of 4</span>
             <h1>📙 Setting Up the PEA</h1>
-            <p style="color: #a1a1aa; margin-top: 10px;">Configuration and initialization of the Prompt Engineering Agent</p>
+            <p style="color: #a1a1aa; margin-top: 10px;">Complete configuration and usage guide for the Prompt Engineering Agent</p>
         </div>
 
-        <div class="card">
-            <h2>First Conversation Setup</h2>
-            <p>When you first start chatting with the PEA, it will ask you some questions to personalize your experience:</p>
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>📑 Quick Navigation</h3>
+            <ul>
+                <li><a href="#import">📥 Importing the PEA</a></li>
+                <li><a href="#first-chat">💬 First Conversation Flow</a></li>
+                <li><a href="#memory-blocks">🧠 All Memory Blocks (20)</a></li>
+                <li><a href="#use-cases">📋 Example Use Cases</a></li>
+                <li><a href="#workflow">🔄 Typical Workflow</a></li>
+                <li><a href="#construction">🏗️ Construction-Specific Features</a></li>
+                <li><a href="#transfer">📤 Transfer to Other Platforms</a></li>
+                <li><a href="#migration">🔀 Platform Migration Help</a></li>
+                <li><a href="#configuration">⚙️ Configuration Options</a></li>
+                <li><a href="#troubleshooting">🔧 Troubleshooting</a></li>
+            </ul>
+        </div>
+
+        <!-- IMPORTING THE PEA -->
+        <div class="card" id="import">
+            <h2>📥 Importing the PEA</h2>
+            <p>Get the Prompt Engineering Agent running in your Letta account:</p>
+
+            <h3>Option 1: Import Agent File</h3>
             <ol class="step-list">
-                <li>Your name and company</li>
-                <li>Your role (GC, subcontractor, architect, etc.)</li>
-                <li>Your preferred AI platform</li>
-                <li>Your communication style (professional vs casual)</li>
-                <li>Typical use cases for AI in your work</li>
+                <li><strong>Download pea-agent.af</strong> - From the demo site or SDSU AI Club</li>
+                <li><strong>Go to Letta</strong> - Visit <a href="https://app.letta.com" target="_blank" style="color: #e94560;">app.letta.com</a></li>
+                <li><strong>Import Agent</strong> - Click "Import Agent" button</li>
+                <li><strong>Select File</strong> - Choose the downloaded pea-agent.af</li>
+                <li><strong>Review</strong> - Check agent details appear correct</li>
+                <li><strong>Import</strong> - Click Import to add to your account</li>
             </ol>
+
+            <h3>Option 2: Create from Template</h3>
+            <p>If you don't have the .af file, create manually:</p>
+            <ol class="step-list">
+                <li><strong>Create Agent</strong> - Click "+ Create Agent" in Letta</li>
+                <li><strong>Name:</strong> PEA (Prompt Engineering Agent)</li>
+                <li><strong>Model:</strong> openai/gpt-4o or claude-sonnet-4-5</li>
+                <li><strong>System Prompt:</strong> Copy from Agent Transfer tab on demo site</li>
+                <li><strong>Memory Blocks:</strong> Add the 20 blocks documented below</li>
+                <li><strong>Tools:</strong> Attach memory, search, and web tools</li>
+                <li><strong>Create</strong> - Finalize agent creation</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> After importing, send your first message to trigger the PEA's self-initialization. It will set up its memory blocks automatically.
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Example First Message</h2>
-            <div class="prompt-box">Hi! I'm ready to help you craft effective prompts for any AI platform.
+        <!-- FIRST CONVERSATION FLOW -->
+        <div class="card" id="first-chat">
+            <h2>💬 First Conversation Flow</h2>
+            <p>When you first chat with the PEA, it will ask questions to personalize your experience:</p>
 
-First, let me learn a bit about you:
-1. What's your name and company?
-2. What's your role in the construction industry?
-3. Which AI platform do you usually use? (ChatGPT, Claude, etc.)
-4. Do you prefer professional or casual communication?
-5. What do you typically use AI for? (RFIs, bids, emails, etc.)</div>
+            <h3>Initial Setup Questions</h3>
+            <ol class="step-list">
+                <li><strong>Your Name & Company</strong> - Who you are and where you work</li>
+                <li><strong>Your Role</strong> - GC, subcontractor, architect, engineer, owner, etc.</li>
+                <li><strong>Preferred AI Platform</strong> - ChatGPT, Claude, Gemini, Copilot, or other</li>
+                <li><strong>Communication Style</strong> - Professional or casual tone preference</li>
+                <li><strong>Typical Use Cases</strong> - RFIs, emails, bids, safety docs, etc.</li>
+                <li><strong>Industry Focus</strong> - Residential, commercial, industrial, TI, etc.</li>
+            </ol>
+
+            <h3>Example First Message to Send</h3>
+            <div class="prompt-box">Hi! I'm ready to get started with prompt engineering.
+
+My name is [Your Name] and I work at [Company Name] as a [Your Role]. I typically use [ChatGPT/Claude/Gemini] for AI assistance. I prefer [professional/casual] communication, and I mainly need help with [describe your top 3 use cases like "drafting RFIs, client emails, and bid proposals"].</div>
+
+            <h3>What PEA Will Do</h3>
+            <div class="tip">
+                <strong>After your introduction, PEA will:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; color: #a1a1aa;">
+                    <li>Store your profile in memory</li>
+                    <li>Adapt its communication to your style</li>
+                    <li>Prepare platform-specific knowledge</li>
+                    <li>Load relevant templates for your industry</li>
+                    <li>Ask any clarifying questions</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Memory Block Structure</h2>
-            <p>The PEA uses memory blocks to store:</p>
-            <p><strong>Human Block:</strong> Your info, preferences, company details</p>
-            <p><strong>Prompt Library:</strong> Saved prompts you've crafted together</p>
-            <p><strong>Construction Templates:</strong> Industry-specific templates</p>
-            <p><strong>Transfer Formats:</strong> Export formats for other platforms</p>
+        <!-- ALL MEMORY BLOCKS -->
+        <div class="card" id="memory-blocks">
+            <h2>🧠 All Memory Blocks (20 Total)</h2>
+            <p>The PEA uses 20 memory blocks organized into 4 categories:</p>
+
+            <!-- Core Identity -->
+            <div class="category-header"><h4>📦 Core Identity (4 blocks)</h4></div>
+            <div class="memory-grid">
+                <div class="memory-block">
+                    <h5>persona</h5>
+                    <p>Agent identity: Who PEA is, its role, personality, and core behaviors.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>human</h5>
+                    <p>User profile: Name, company, role, preferences, communication style.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>guardrails</h5>
+                    <p>Boundaries: What PEA will/won't do, ethical guidelines, limitations.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>welcome_message</h5>
+                    <p>First interaction guide: How PEA introduces itself and gathers info.</p>
+                </div>
+            </div>
+
+            <!-- Frameworks & Knowledge -->
+            <div class="category-header"><h4>📚 Frameworks & Knowledge (5 blocks)</h4></div>
+            <div class="memory-grid">
+                <div class="memory-block">
+                    <h5>frameworks</h5>
+                    <p>CTF, RTCCO, RASCEF, PRIME, 5C frameworks with explanations.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>construction_glossary</h5>
+                    <p>Industry terminology: RFI, submittal, change order, NTP, GMP, etc.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>platform_knowledge</h5>
+                    <p>ChatGPT, Claude, Gemini, Copilot, DeepSeek capabilities and formats.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>construction_templates</h5>
+                    <p>Templates for RFIs, submittals, change orders, bids, emails.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>prompt_library</h5>
+                    <p>Saved prompts: User's favorite prompts, templates, and examples.</p>
+                </div>
+            </div>
+
+            <!-- Guides & Examples -->
+            <div class="category-header"><h4>📖 Guides & Examples (4 blocks)</h4></div>
+            <div class="memory-grid">
+                <div class="memory-block">
+                    <h5>transfer_formats</h5>
+                    <p>Platform-specific export formats for moving PEA to other AI platforms.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>migration_templates</h5>
+                    <p>Prompts for migrating between AI platforms (ChatGPT → Claude, etc.).</p>
+                </div>
+                <div class="memory-block">
+                    <h5>troubleshooting_guide</h5>
+                    <p>Common issues and solutions for prompt engineering.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>examples_showcase</h5>
+                    <p>Before/after examples demonstrating effective prompt engineering.</p>
+                </div>
+            </div>
+
+            <!-- Working Memory -->
+            <div class="category-header"><h4>⚡ Working Memory (6 blocks)</h4></div>
+            <div class="memory-grid">
+                <div class="memory-block">
+                    <h5>user_preferences</h5>
+                    <p>Tone, format, detail level preferences extracted from conversations.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>active_context</h5>
+                    <p>Current project or task the user is working on.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>scratchpad</h5>
+                    <p>Temporary workspace for building and refining prompts.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>session_log</h5>
+                    <p>Current session activity and decisions made.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>lessons_learned</h5>
+                    <p>What works/doesn't work for this user over time.</p>
+                </div>
+                <div class="memory-block">
+                    <h5>maintenance_log</h5>
+                    <p>Updates, fixes, and improvements to the agent.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Auto-Initialization:</strong> When PEA receives its first message, it automatically populates these memory blocks using the memory tool. You don't need to manually set them up.
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Quick Start Example</h2>
-            <div class="prompt-box">You: "I need help writing an RFI about a beam conflict"
+        <!-- EXAMPLE USE CASES -->
+        <div class="card" id="use-cases">
+            <h2>📋 Example Use Cases</h2>
+            <p>The PEA is designed for construction industry professionals:</p>
 
-PEA: "I can help! A few questions:
+            <div class="use-case-card">
+                <h4>1. Draft an RFI</h4>
+                <p style="color: #a1a1aa;">"I need an RFI about a conflict between the structural drawings and MEP coordination. Send to the architect."</p>
+                <div class="prompt-box" style="margin-top: 10px;"><strong>PEA will ask:</strong>
+- What type of project?
+- Specific location/area?
+- What's the conflict in detail?
+- Schedule impact?
+- Response deadline?
+
+<strong>Then generates:</strong> Professional RFI with all required fields</div>
+            </div>
+
+            <div class="use-case-card">
+                <h4>2. Write a Change Order Email</h4>
+                <p style="color: #a1a1aa;">"I need to tell the owner about a necessary change order for additional waterproofing."</p>
+                <div class="prompt-box" style="margin-top: 10px;"><strong>PEA will ask:</strong>
+- Why is it needed?
+- Cost impact?
+- Schedule impact?
+- Who authorized discovery?
+
+<strong>Then generates:</strong> Clear, professional email with options</div>
+            </div>
+
+            <div class="use-case-card">
+                <h4>3. Prepare a Bid Proposal</h4>
+                <p style="color: #a1a1aa;">"Help me write a lump sum bid proposal for a TI project."</p>
+                <div class="prompt-box" style="margin-top: 10px;"><strong>PEA will ask:</strong>
+- Project scope highlights?
+- Your approach/methodology?
+- Key personnel?
+- Schedule duration?
+- Any exclusions to note?
+
+<strong>Then generates:</strong> Complete proposal structure with sections</div>
+            </div>
+
+            <div class="use-case-card">
+                <h4>4. Create a Safety Briefing</h4>
+                <p style="color: #a1a1aa;">"I need a toolbox talk about fall protection for next week."</p>
+                <div class="prompt-box" style="margin-top: 10px;"><strong>PEA will ask:</strong>
+- Any recent incidents to reference?
+- Crew type/size?
+- Specific work area/equipment?
+- Duration desired?
+
+<strong>Then generates:</strong> Talk outline with hazards, mitigations, Q&A prompts</div>
+            </div>
+
+            <div class="use-case-card">
+                <h4>5. Client Communication</h4>
+                <p style="color: #a1a1aa;">"Email the owner about a 3-week schedule delay due to material issues."</p>
+                <div class="prompt-box" style="margin-top: 10px;"><strong>PEA will ask:</strong>
+- Cause specifics?
+- Mitigation efforts?
+- New completion date?
+- What do you need from them?
+
+<strong>Then generates:</strong> Transparent, solution-oriented email</div>
+            </div>
+        </div>
+
+        <!-- TYPICAL WORKFLOW -->
+        <div class="card" id="workflow">
+            <h2>🔄 Typical Workflow</h2>
+            <p>How to work with PEA on any prompt engineering task:</p>
+
+            <ol class="step-list">
+                <li><strong>Describe Your Need</strong> - "I need [document type] for [purpose] to send to [recipient]"</li>
+                <li><strong>Answer Questions</strong> - PEA asks clarifying questions about context</li>
+                <li><strong>Review Draft</strong> - PEA generates prompt or document</li>
+                <li><strong>Request Changes</strong> - "Make it more formal" or "Add the budget section"</li>
+                <li><strong>Iterate</strong> - Continue refining until satisfied</li>
+                <li><strong>Save to Library</strong> - "Save this prompt for future use"</li>
+                <li><strong>Learn</strong> - PEA remembers what works for you</li>
+            </ol>
+
+            <h3>Refinement Commands</h3>
+            <div class="sidebar">
+                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
+                    <li><code>"Make it shorter"</code> - Condense the output</li>
+                    <li><code>"More professional"</code> - Elevate tone</li>
+                    <li><code>"More casual"</code> - Friendly tone</li>
+                    <li><code>"Add [element]"</code> - Include additional content</li>
+                    <li><code>"Remove [element]"</code> - Take out content</li>
+                    <li><code>"Format as [bullets/table/paragraph]"</code> - Change structure</li>
+                    <li><code>"Explain why you included [X]"</code> - Educational insight</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CONSTRUCTION-SPECIFIC FEATURES -->
+        <div class="card" id="construction">
+            <h2>🏗️ Construction-Specific Features</h2>
+            <p>PEA is tailored for BIA SCC AI Subcommittee members:</p>
+
+            <h3>Document Types Supported</h3>
+            <div class="sidebar">
+                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
+                    <li><strong>RFI</strong> - Request for Information</li>
+                    <li><strong>Submittals</strong> - Product data, shop drawings</li>
+                    <li><strong>Change Orders</strong> - Owner notifications, pricing</li>
+                    <li><strong>Bid Proposals</strong> - Lump sum, GMP, cost-plus</li>
+                    <li><strong>Daily Reports</strong> - Field documentation</li>
+                    <li><strong>Safety Documents</strong> - JHA, toolbox talks, incident reports</li>
+                    <li><strong>Client Emails</strong> - Status updates, issue notifications</li>
+                    <li><strong>Subcontractor Letters</strong> - Coordination, notices</li>
+                </ul>
+            </div>
+
+            <h3>Industry Terminology Known</h3>
+            <div class="prompt-box">RFI - Request for Information
+ASI - Architect's Supplemental Information
+CCD - Construction Change Directive
+PCO - Potential Change Order
+NTP - Notice to Proceed
+GMP - Guaranteed Maximum Price
+DB - Design-Build
+DBB - Design-Bid-Build
+CMAR - Construction Manager at Risk
+TI - Tenant Improvement
+GC - General Contractor
+Sub - Subcontractor
+A/E - Architect/Engineer</div>
+
+            <h3>Stakeholder-Aware</h3>
+            <p>PEA adjusts style based on recipient:</p>
+            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
+                <li><strong>Owners:</strong> Business-focused, clear cost/schedule impact</li>
+                <li><strong>Architects:</strong> Technical, references drawings/specs</li>
+                <li><strong>Subcontractors:</strong> Direct, actionable instructions</li>
+                <li><strong>Inspectors:</strong> Compliance-focused, documentation</li>
+            </ul>
+        </div>
+
+        <!-- TRANSFER TO OTHER PLATFORMS -->
+        <div class="card" id="transfer">
+            <h2>📤 Transfer to Other Platforms</h2>
+            <p>PEA can help you use it on your preferred AI platform:</p>
+
+            <h3>Transfer Prompt</h3>
+            <div class="prompt-box">Help me transfer you to [Claude/ChatGPT/Gemini/Copilot]. Give me:
+1. The system prompt formatted for that platform
+2. Step-by-step setup instructions
+3. Any limitations or workarounds
+4. How to verify it's working</div>
+
+            <h3>What You'll Get</h3>
+            <div class="sidebar">
+                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
+                    <li><strong>Claude:</strong> Project Instructions format with knowledge files</li>
+                    <li><strong>ChatGPT:</strong> Custom Instructions split format</li>
+                    <li><strong>Gemini:</strong> Gem instructions</li>
+                    <li><strong>Copilot:</strong> Copilot Studio configuration</li>
+                    <li><strong>DeepSeek:</strong> Conversation starter context</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>💡 See Demo Site:</strong> The Agent Transfer tab on the demo site has complete instructions for all 5 platforms with copy/paste prompts.
+            </div>
+        </div>
+
+        <!-- PLATFORM MIGRATION HELP -->
+        <div class="card" id="migration">
+            <h2>🔀 Platform Migration Help</h2>
+            <p>PEA can help you migrate between AI platforms:</p>
+
+            <h3>Migration Prompt</h3>
+            <div class="prompt-box">I want to migrate from [current platform] to [target platform]. 
+My main use is [describe use cases].
+Help me:
+1. Export my context from [current platform]
+2. Format it for [target platform]
+3. Set up [target platform] with my preferences
+4. Verify the migration worked</div>
+
+            <h3>Common Migrations</h3>
+            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
+                <li><strong>ChatGPT → Claude:</strong> Transfer Custom Instructions to Project Instructions</li>
+                <li><strong>Claude → ChatGPT:</strong> Split Project context into Custom Instructions fields</li>
+                <li><strong>ChatGPT → Gemini:</strong> Convert prompts to Gem format</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 See Demo Site:</strong> The Migration tab on the demo site has comprehensive guides for all migration pathways with context.md templates.
+            </div>
+        </div>
+
+        <!-- CONFIGURATION OPTIONS -->
+        <div class="card" id="configuration">
+            <h2>⚙️ Configuration Options</h2>
+            <p>Customize PEA to your preferences:</p>
+
+            <h3>Tone Preference</h3>
+            <div class="prompt-box">Remember that I prefer [professional/casual/mixed] communication across all interactions.</div>
+
+            <h3>Format Preference</h3>
+            <div class="prompt-box">I prefer responses formatted as [bullets/numbered lists/paragraphs/tables]. Use this unless I specify otherwise.</div>
+
+            <h3>Detail Level</h3>
+            <div class="prompt-box">Provide [brief/medium/detailed] explanations. I want to understand [just the output / the reasoning too].</div>
+
+            <h3>Platform Default</h3>
+            <div class="prompt-box">My primary AI platform is [ChatGPT/Claude/Gemini]. Tailor all prompts and advice for this platform unless I ask otherwise.</div>
+
+            <h3>Industry Focus</h3>
+            <div class="prompt-box">I work in [residential/commercial/industrial/TI] construction. Prioritize templates and examples for this sector.</div>
+
+            <div class="tip">
+                <strong>💡 Persistence:</strong> PEA remembers these preferences in its memory blocks. You only need to set them once.
+            </div>
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <div class="card" id="troubleshooting">
+            <h2>🔧 Troubleshooting</h2>
+            <p>Common issues and solutions:</p>
+
+            <div class="troubleshoot-item">
+                <h4>PEA Asks Too Many Questions</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> Say "I'll provide all details upfront" then give complete context in one message. PEA will adapt to your style.</p>
+            </div>
+
+            <div class="troubleshoot-item">
+                <h4>Output isn't in the Right Format</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> Be explicit: "Format as [specific format]" or provide an example of what you want.</p>
+            </div>
+
+            <div class="troubleshoot-item">
+                <h4>PEA Doesn't Remember Preferences</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> Say "Please save this preference to your memory" after stating what you want remembered.</p>
+            </div>
+
+            <div class="troubleshoot-item">
+                <h4>Prompt Doesn't Work on My Platform</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> Tell PEA which platform you're using: "Rewrite this for [ChatGPT/Claude/Gemini] specifically."</p>
+            </div>
+
+            <div class="troubleshoot-item">
+                <h4>Need to Start Fresh</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> Say "Let's reset. I want to update my preferences" to have PEA re-gather your information.</p>
+            </div>
+
+            <div class="troubleshoot-item">
+                <h4>Agent Seems Slow</h4>
+                <p style="color: #a1a1aa;"><strong>Solution:</strong> This is normal - PEA is using tools to search memory and update contexts. The reasoning process produces better results.</p>
+            </div>
+        </div>
+
+        <!-- QUICK START EXAMPLE (KEPT FROM ORIGINAL) -->
+        <div class="card">
+            <h2>⚡ Quick Start Example</h2>
+            <div class="prompt-box"><strong>You:</strong> "I need help writing an RFI about a beam conflict"
+
+<strong>PEA:</strong> "I can help! A few questions:
 - What type of project is this? (commercial, residential, TI?)
 - Who will receive this RFI? (architect, engineer, GC?)
 - Do you need a formal RFI format or just the question?
-- What's the specific conflict you need clarified?"</div>
+- What's the specific conflict you need clarified?"
+
+<strong>You:</strong> "Commercial TI project, sending to architect, need formal RFI format. The structural drawings show a W12x26 beam but the MEP drawings show a duct running through the same space."
+
+<strong>PEA:</strong> [Generates complete, professional RFI with all required fields, proper formatting, and clear question to architect]</div>
         </div>
 
+        <!-- NAVIGATION -->
         <div class="nav-buttons">
             <a href="guide-create-creator.html" class="btn">← Previous: Creating a Creator Agent</a>
             <a href="index.html" class="btn">Back to Demo Site</a>
