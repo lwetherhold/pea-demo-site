@@ -31,7 +31,13 @@
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .feature-item { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; border-left: 3px solid #e94560; }
         .feature-item strong { color: #e94560; }
-    </style>
+    
+        .tidbit-card:hover {
+            border-color: #e94560;
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+        </style>
 </head>
 <body>
     <header class="header">
@@ -105,10 +111,22 @@
                 <p>Step-by-step guides for getting started with AI and the Prompt Engineering Agent.</p>
             </div>
             <div class="tidbit-grid">
-                <div class="tidbit-card"><h4>📘 Guide 1: How to Use Letta</h4><p style="color: #a1a1aa;">Getting started from scratch - visiting the website, creating an account, and setting up Letta to use the PEA.</p></div>
-                <div class="tidbit-card"><h4>📗 Guide 2: Using a Creator Agent</h4><p style="color: #a1a1aa;">How to work with a Creator Agent to build your own Prompt Engineering Agent.</p></div>
-                <div class="tidbit-card"><h4>📕 Guide 3: Creating a Creator Agent</h4><p style="color: #a1a1aa;">How to create your own Creator Agent on any AI platform.</p></div>
-                <div class="tidbit-card"><h4>📙 Guide 4: Setting Up PEA</h4><p style="color: #a1a1aa;">Configuration and initialization of the Prompt Engineering Agent.</p></div>
+                <a href="tidbit-letta.html" class="tidbit-card" style="text-decoration: none; cursor: pointer;">
+                    <h4>📘 Guide 1: How to Use Letta</h4>
+                    <p style="color: #a1a1aa;">Getting started from scratch - visiting the website, creating an account, and setting up Letta to use the PEA.</p>
+                </a>
+                <a href="tidbit-creator.html" class="tidbit-card" style="text-decoration: none; cursor: pointer;">
+                    <h4>📗 Guide 2: Using a Creator Agent</h4>
+                    <p style="color: #a1a1aa;">How to work with a Creator Agent to build your own Prompt Engineering Agent.</p>
+                </a>
+                <a href="tidbit-create-creator.html" class="tidbit-card" style="text-decoration: none; cursor: pointer;">
+                    <h4>📕 Guide 3: Creating a Creator Agent</h4>
+                    <p style="color: #a1a1aa;">How to create your own Creator Agent on any AI platform.</p>
+                </a>
+                <a href="tidbit-setup-pea.html" class="tidbit-card" style="text-decoration: none; cursor: pointer;">
+                    <h4>📙 Guide 4: Setting Up PEA</h4>
+                    <p style="color: #a1a1aa;">Configuration and initialization of the Prompt Engineering Agent.</p>
+                </a>
             </div>
         </div>
 
