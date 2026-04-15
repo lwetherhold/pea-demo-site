@@ -78,6 +78,32 @@
         .memory-category ul { list-style: none; }
         .memory-category li { color: #a1a1aa; padding: 3px 0; font-size: 0.85rem; }
         .memory-category strong { color: #e94560; }
+        
+        .migration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .migration-path { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(233, 69, 96, 0.2); transition: all 0.2s; }
+        .migration-path:hover { background: rgba(233, 69, 96, 0.2); border-color: #e94560; }
+        .migration-path strong { color: #fff; }
+        .migration-path p { color: #a1a1aa; font-size: 0.85rem; margin-top: 5px; }
+        .method-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(233, 69, 96, 0.2); }
+        .method-section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+        .method-section h4 { color: #e94560; margin-bottom: 15px; }
+        .extension-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px; }
+        .extension-card { background: rgba(13, 17, 23, 0.8); padding: 15px; border-radius: 8px; border: 1px solid rgba(233, 69, 96, 0.2); }
+        .extension-card strong { color: #fff; }
+        .extension-card p { color: #a1a1aa; margin: 5px 0; font-size: 0.9rem; }
+        .extension-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .manual-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .method-card { background: rgba(22, 33, 62, 0.5); padding: 12px; border-radius: 6px; }
+        .method-card strong { color: #fff; font-size: 0.9rem; }
+        .method-card p { color: #a1a1aa; font-size: 0.85rem; margin-top: 5px; }
+        .template-section { margin-top: 20px; }
+        .template-section h4 { color: #fff; margin-bottom: 10px; }
+        .quick-prompts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+        .quick-prompt { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; }
+        .quick-prompt strong { color: #fff; display: block; margin-bottom: 10px; }
+        .prompt-box-mini { background: #0d1117; border-radius: 6px; padding: 10px; font-size: 0.85rem; color: #c9d1d9; }
+        .copy-btn-mini { background: rgba(233, 69, 96, 0.2); border: 1px solid #e94560; color: #e94560; padding: 3px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 8px; }
+        .copy-btn-mini:hover { background: #e94560; color: white; }
         </style>
 </head>
 <body>
@@ -925,48 +951,672 @@ Also explain:
             </div>
         </div>
 
-        <div id="migration" class="tab-content">
-
-        <div id="migration" class="tab-content">
+                <div id="migration" class="tab-content">
             <div class="card">
                 <h2>🔀 Platform Migration Guides</h2>
-                <p>Move your context, preferences, and conversation history between AI platforms.</p>
+                <p>Comprehensive guides for transferring context, conversations, memories, and preferences between AI platforms. Choose your migration pathway below.</p>
             </div>
-            <div class="card">
-                <h3>ChatGPT → Claude Migration</h3>
-                <ol class="step-list">
-                    <li>In ChatGPT, send: "Please compile all our conversations, my preferences, and any context you have about me into a comprehensive context.md file formatted for transfer to another AI system."</li>
-                    <li>Copy the output from ChatGPT</li>
-                    <li>In Claude, create a new Project</li>
-                    <li>Paste the compiled context into Project Instructions</li>
-                    <li>Start your first message: "I've migrated from ChatGPT. Please use this context to personalize our interactions."</li>
-                </ol>
-            </div>
-            <div class="card">
-                <h3>Context.md Template</h3>
-                <div class="prompt-box"># User Context File
 
-## Personal Information
+            <!-- MIGRATION PATHWAYS GRID -->
+            <div class="card">
+                <h3>🛤️ Migration Pathways</h3>
+                <div class="migration-grid">
+                    <div class="migration-path" onclick="toggleCollapse('chatgpt-to-claude')">
+                        <strong>ChatGPT → Claude</strong>
+                        <p>Most popular migration</p>
+                    </div>
+                    <div class="migration-path" onclick="toggleCollapse('chatgpt-to-gemini')">
+                        <strong>ChatGPT → Gemini</strong>
+                        <p>Google ecosystem</p>
+                    </div>
+                    <div class="migration-path" onclick="toggleCollapse('chatgpt-to-copilot')">
+                        <strong>ChatGPT → Copilot</strong>
+                        <p>Microsoft 365 integration</p>
+                    </div>
+                    <div class="migration-path" onclick="toggleCollapse('claude-to-chatgpt')">
+                        <strong>Claude → ChatGPT</strong>
+                        <p>Reverse migration</p>
+                    </div>
+                    <div class="migration-path" onclick="toggleCollapse('claude-to-gemini')">
+                        <strong>Claude → Gemini</strong>
+                        <p>Anthropic to Google</p>
+                    </div>
+                    <div class="migration-path" onclick="toggleCollapse('gemini-to-chatgpt')">
+                        <strong>Gemini → ChatGPT</strong>
+                        <p>Google to OpenAI</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHATGPT TO CLAUDE -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('chatgpt-to-claude')">🟢 ChatGPT → 🔷 Claude</h3>
+                <div id="chatgpt-to-claude" class="collapse-content show">
+
+                    <div class="method-section">
+                        <h4>Method 1: Request context.md File</h4>
+                        <p>Ask ChatGPT to compile everything into a transferable format:</p>
+                        <div class="prompt-box" id="chatgpt-context-prompt">Please compile a comprehensive context.md file for my migration to Claude. Include:
+
+## MY PROFILE
+- My name, role, company, and industry
+- How I've described myself in our conversations
+- Any preferences I've stated (tone, format, communication style)
+
+## MY WORK CONTEXT
+- Types of tasks I ask for help with
+- Documents I frequently work on (RFIs, emails, proposals, etc.)
+- Industry terminology I use
+- Stakeholders I mention (clients, GCs, subcontractors, etc.)
+
+## CONVERSATION PATTERNS
+- Topics we discuss most
+- Workflows we've established
+- Templates or formats I prefer
+- Refinements I typically request
+
+## PREFERENCES SUMMARY
+- Response length preference
+- Tone preference (professional/casual)
+- Format preference (bullets/paragraphs/tables)
+- Any pet peeves or things to avoid
+
+## KEY INSIGHTS
+- What works well in our interactions
+- Areas where I need the most help
+- My expertise level and where I need more explanation
+
+Format this as a single markdown file I can copy and paste directly into Claude's project instructions.</div>
+                        <button class="copy-btn" onclick="copyToClipboard('chatgpt-context-prompt')">📋 Copy Prompt</button>
+
+                        <p style="margin-top: 15px;"><strong>In Claude:</strong></p>
+                        <ol class="step-list">
+                            <li>Create a new Project</li>
+                            <li>Paste the context.md into Project Instructions</li>
+                            <li>Upload as a knowledge file if too long</li>
+                            <li>Start with: "I've migrated from ChatGPT. Please use this context."</li>
+                        </ol>
+                    </div>
+
+                    <div class="method-section">
+                        <h4>Method 2: Export via Chrome Extension</h4>
+                        <p>Use browser extensions to export full conversation history:</p>
+
+                        <div class="extension-list">
+                            <div class="extension-card">
+                                <strong>ChatGPT Exporter</strong>
+                                <p>Chrome Web Store - Free</p>
+                                <p style="color: #a1a1aa;">Exports conversations as JSON, Markdown, or PDF</p>
+                                <a href="https://chromewebstore.google.com/search/ChatGPT%20exporter" target="_blank" style="color: #e94560;">Search in Chrome Store →</a>
+                            </div>
+                            <div class="extension-card">
+                                <strong>Save ChatGPT as PDF</strong>
+                                <p>Chrome Web Store - Free</p>
+                                <p style="color: #a1a1aa;">Saves entire conversation as searchable PDF</p>
+                            </div>
+                            <div class="extension-card">
+                                <strong>Superpower ChatGPT</strong>
+                                <p>Chrome Web Store - Free/Paid</p>
+                                <p style="color: #a1a1aa;">Enhanced export, search, and organization</p>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 15px;"><strong>After export:</strong></p>
+                        <ol class="step-list">
+                            <li>Export desired conversations as Markdown</li>
+                            <li>In Claude, create a Project</li>
+                            <li>Upload .md files as knowledge documents</li>
+                            <li>Claude can reference these in conversations</li>
+                        </ol>
+                    </div>
+
+                    <div class="method-section">
+                        <h4>Method 3: Projects/GPTs Export</h4>
+                        <p>If you have Custom GPTs or Projects in ChatGPT:</p>
+                        <div class="prompt-box" id="gpt-export-prompt">I have a custom GPT/Project with [describe it]. Please extract:
+
+1. The system prompt/instructions (if visible)
+2. All knowledge files content (summarize if extensive)
+3. Custom settings and configurations
+4. Key conversation patterns
+
+Provide this in a format I can recreate in Claude Projects.</div>
+                        <button class="copy-btn" onclick="copyToClipboard('gpt-export-prompt')">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHATGPT TO GEMINI -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('chatgpt-to-gemini')">🟢 ChatGPT → ✨ Gemini</h3>
+                <div id="chatgpt-to-gemini" class="collapse-content">
+                    <div class="method-section">
+                        <h4>Gemini Migration Prompt</h4>
+                        <div class="prompt-box" id="chatgpt-to-gemini-prompt">Please create a comprehensive transfer file for migrating to Google Gemini. Include:
+
+## USER PROFILE
+All information about me from our conversations
+
+## PREFERENCES
+- Response style preferences
+- Tone preferences
+- Format preferences
+- Topics I discuss most
+
+## WORK CONTEXT
+- My industry and role
+- Document types I work with
+- Terminology and jargon I use
+- Common stakeholders I mention
+
+## ESTABLISHED WORKFLOWS
+- How we typically approach problems
+- Templates or formats we've developed
+- Refinements I often request
+- What works well in our interactions
+
+## KEY CONVERSATIONS
+Summarize the most important conversations we've had that I'd want Gemini to understand about my work.
+
+Format as a single comprehensive context document.</div>
+                        <button class="copy-btn" onclick="copyToClipboard('chatgpt-to-gemini-prompt')">📋 Copy</button>
+
+                        <p style="margin-top: 15px;"><strong>In Gemini:</strong></p>
+                        <ol class="step-list">
+                            <li>Create a new Gem</li>
+                            <li>Name it with your context</li>
+                            <li>Paste context into instructions</li>
+                            <li>Or upload as first conversation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHATGPT TO COPILOT -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('chatgpt-to-copilot')">🟢 ChatGPT → 🔵 Copilot</h3>
+                <div id="chatgpt-to-copilot" class="collapse-content">
+                    <div class="method-section">
+                        <h4>Copilot Migration Prompt</h4>
+                        <div class="prompt-box" id="chatgpt-to-copilot-prompt">Create a migration document for Microsoft Copilot. Include:
+
+## USER CONTEXT
+Everything you know about me from our conversations
+
+## MICROSOFT 365 INTEGRATION NEEDS
+- Office apps I work with (Word, Excel, Outlook, Teams)
+- Document types I create
+- Collaboration patterns
+- Meeting and email practices
+
+## WORK PATTERNS
+- Tasks I commonly request
+- Documents I frequently draft
+- Stakeholders I communicate with
+- Industry context
+
+## PREFERENCES
+- Output format preferences
+- Tone preferences
+- Detail level preferences
+- Things to emphasize or avoid
+
+Format for easy transfer to Copilot Studio or Copilot in Microsoft 365.</div>
+                        <button class="copy-btn" onclick="copyToClipboard('chatgpt-to-copilot-prompt')">📋 Copy</button>
+
+                        <p style="margin-top: 15px;"><strong>In Copilot:</strong></p>
+                        <ol class="step-list">
+                            <li>Go to copilotstudio.microsoft.com</li>
+                            <li>Create or configure your copilot</li>
+                            <li>Add context as knowledge files</li>
+                            <li>Paste preferences into agent instructions</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLAUDE TO CHATGPT -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('claude-to-chatgpt')">🔷 Claude → 🟢 ChatGPT</h3>
+                <div id="claude-to-chatgpt" class="collapse-content">
+                    <div class="method-section">
+                        <h4>Method 1: Project Export</h4>
+                        <p>Export Claude Projects knowledge:</p>
+                        <div class="prompt-box" id="claude-export-prompt">I want to migrate to ChatGPT. Please compile:
+
+## ALL PROJECT KNOWLEDGE
+- Everything in my project instructions
+- All uploaded documents (summarize if extensive)
+- Established workflows from our conversations
+
+## USER PREFERENCES
+- My profile information
+- Preferred response styles
+- Communication patterns
+- Tone and format preferences
+
+## WORK CONTEXT
+- My role and industry
+- Common tasks and document types
+- Stakeholders and terminology
+- Established patterns that work well
+
+## WHAT TO PRESERVE
+The most important things ChatGPT should know to continue helping me effectively.
+
+Format for ChatGPT Custom Instructions (split between "What ChatGPT should know about me" and "How ChatGPT should respond").</div>
+                        <button class="copy-btn" onclick="copyToClipboard('claude-export-prompt')">📋 Copy</button>
+
+                        <p style="margin-top: 15px;"><strong>Output format:</strong></p>
+                        <div class="prompt-box" id="chatgpt-split-format"># FOR "What would you like ChatGPT to know about you?":
+[User profile, context, work information]
+
+# FOR "How would you like ChatGPT to respond?":
+[Behavioral preferences, response guidelines, communication style]</div>
+                    </div>
+
+                    <div class="method-section">
+                        <h4>Method 2: Artifacts & Documents</h4>
+                        <p>For Claude Artifacts and long documents:</p>
+                        <ol class="step-list">
+                            <li>Copy artifact content directly</li>
+                            <li>Paste into ChatGPT conversation</li>
+                            <li>Or save as files and describe in Custom Instructions</li>
+                            <li>Use: "Here's a document I created in Claude that I want you to reference"</li>
+                        </ol>
+                    </div>
+
+                    <div class="method-section">
+                        <h4>Chrome Extensions for Claude</h4>
+                        <div class="extension-list">
+                            <div class="extension-card">
+                                <strong>Claude Exporter</strong>
+                                <p>Chrome Web Store</p>
+                                <p style="color: #a1a1aa;">Export Claude conversations as Markdown/PDF</p>
+                            </div>
+                            <div class="extension-card">
+                                <strong>Export Claude Chat</strong>
+                                <p>Chrome Web Store</p>
+                                <p style="color: #a1a1aa;">Save conversations with formatting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLAUDE TO GEMINI -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('claude-to-gemini')">🔷 Claude → ✨ Gemini</h3>
+                <div id="claude-to-gemini" class="collapse-content">
+                    <div class="prompt-box" id="claude-to-gemini-prompt">I'm migrating from Claude to Gemini. Please compile a comprehensive context document including:
+
+## EVERYTHING YOU KNOW ABOUT ME
+- Profile information
+- Work context
+- Communication style preferences
+- Established patterns
+
+## PROJECT KNOWLEDGE SUMMARY
+- Key uploaded documents (summarized)
+- Established workflows
+- Templates and formats we use
+
+## PREFERENCES
+- Response style (tone, length, format)
+- What works well
+- Areas I need most help
+- Things to avoid
+
+## CONTINUITY GUIDE
+What Gemini should know to seamlessly continue our work together.
+
+Format as a single document optimized for Gemini Gem instructions.</div>
+                    <button class="copy-btn" onclick="copyToClipboard('claude-to-gemini-prompt')">📋 Copy</button>
+                </div>
+            </div>
+
+            <!-- GEMINI TO CHATGPT -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('gemini-to-chatgpt')">✨ Gemini → 🟢 ChatGPT</h3>
+                <div id="gemini-to-chatgpt" class="collapse-content">
+                    <div class="prompt-box" id="gemini-to-chatgpt-prompt">I'm moving from Gemini to ChatGPT. Create a migration context document with:
+
+## USER PROFILE
+All information about me from our conversations
+
+## GEMINI GEM CONTEXT (if applicable)
+- Custom instructions I've set
+- Established preferences
+- Knowledge from our interactions
+
+## WORK PATTERNS
+- Tasks I commonly request
+- Documents I create
+- Refinements I request
+- What works well
+
+## PREFERENCES FOR CHATGPT
+- Response style
+- Tone (professional/casual)
+- Format preferences
+- Detail level
+
+Split the output into:
+1. "What ChatGPT should know about me"
+2. "How ChatGPT should respond"</div>
+                    <button class="copy-btn" onclick="copyToClipboard('gemini-to-chatgpt-prompt')">📋 Copy</button>
+                </div>
+            </div>
+
+            <!-- UNIVERSAL MIGRATION TOOLS -->
+            <div class="card">
+                <h3>🔧 Universal Migration Tools</h3>
+
+                <div class="method-section">
+                    <h4>Chrome Extensions for Any Platform</h4>
+                    <div class="extension-grid">
+                        <div class="extension-card">
+                            <strong>🌐 Web Chat Exporter</strong>
+                            <p>Universal export for multiple AI platforms</p>
+                            <p style="color: #a1a1aa;">Works with ChatGPT, Claude, Gemini, and more</p>
+                        </div>
+                        <div class="extension-card">
+                            <strong>📝 Markdown Exporter</strong>
+                            <p>Convert any chat to Markdown format</p>
+                            <p style="color: #a1a1aa;">Preserves formatting and structure</p>
+                        </div>
+                        <div class="extension-card">
+                            <strong>💾 Conversation Saver</strong>
+                            <p>Full conversation archival</p>
+                            <p style="color: #a1a1aa;">JSON, Markdown, PDF export options</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px;"><a href="https://chromewebstore.google.com/search/AI%20chat%20export" target="_blank" style="color: #e94560;">Search Chrome Web Store →</a></p>
+                </div>
+
+                <div class="method-section">
+                    <h4>Manual Export Methods</h4>
+                    <div class="manual-methods">
+                        <div class="method-card">
+                            <strong>Screenshot + OCR</strong>
+                            <p>For short conversations: Screenshot, use OCR tool to extract text</p>
+                        </div>
+                        <div class="method-card">
+                            <strong>Select All + Copy</strong>
+                            <p>Click conversation, Select All (Ctrl/Cmd+A), Copy, paste into document</p>
+                        </div>
+                        <div class="method-card">
+                            <strong>Print to PDF</strong>
+                            <p>Browser print function → Save as PDF → Extract text if needed</p>
+                        </div>
+                        <div class="method-card">
+                            <strong>API Export</strong>
+                            <p>If you have API access: Programmatic conversation retrieval</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTEXT.MD TEMPLATES -->
+            <div class="card">
+                <h3 class="clickable" onclick="toggleCollapse('context-templates')">📄 context.md Template Variations</h3>
+                <div id="context-templates" class="collapse-content">
+
+                    <div class="template-section">
+                        <h4>Minimal Template</h4>
+                        <div class="prompt-box" id="minimal-context"># User Context
+
+## Profile
 - Name: [Your name]
 - Role: [Your job title]
 - Company: [Company name]
+
+## Preferences
+- Tone: [Professional/Casual]
+- Format: [Bullets/Paragraphs]
+
+## Use Cases
+[List 3-5 things you use AI for most]</div>
+                        <button class="copy-btn" onclick="copyToClipboard('minimal-context')">📋 Copy</button>
+                    </div>
+
+                    <div class="template-section">
+                        <h4>Comprehensive Template</h4>
+                        <div class="prompt-box" id="full-context"># User Context File
+Generated: [Date]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## PERSONAL INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Name: [Full name]
+- Role: [Job title]
+- Company: [Company name]
 - Industry: [Industry]
+- Location: [City, State]
+- Contact preferences: [Email/Phone/Teams]
 
-## Communication Preferences
-- Tone preference: [Professional/Casual]
-- Response length: [Brief/Medium/Detailed]
-- Format preference: [Bullet points/Paragraphs/Tables]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## PROFESSIONAL CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### Primary Responsibilities
+- [Responsibility 1]
+- [Responsibility 2]
+- [Responsibility 3]
 
-## Professional Context
-- Primary use cases: [e.g., RFI drafting, client emails, bid proposals]
-- Common stakeholders: [Clients, superintendents, inspectors, etc.]
-- Technical level: [Basic/Intermediate/Advanced]
+### Document Types Created
+- [e.g., RFIs, submittals, proposals, emails]
+- [Include specific formats or templates you use]
 
-## Preferences for AI Responses
-- Always include: [e.g., specific terminology, action items]
-- Never include: [things you don't want]</div>
+### Key Stakeholders
+- [Client type 1]: [Communication style preference]
+- [Client type 2]: [Communication style preference]
+
+### Industry Terminology
+[List common terms and acronyms you use]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## COMMUNICATION PREFERENCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### Tone
+- Default: [Professional/Casual/Mixed]
+- For clients: [Specify]
+- For internal: [Specify]
+
+### Response Length
+- Preference: [Brief/Medium/Detailed]
+- Exceptions: [When to vary]
+
+### Format Preferences
+- Default: [Bullets/Numbered lists/Paragraphs/Tables]
+- For specific tasks:
+  - [Task type]: [Preferred format]
+  - [Task type]: [Preferred format]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## AI INTERACTION PATTERNS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### Common Tasks
+1. [Task description]
+2. [Task description]
+3. [Task description]
+
+### Typical Workflow
+1. [How you typically start]
+2. [Refinements you often request]
+3. [How you know when it's done]
+
+### What Works Well
+[Patterns that produce the best results for you]
+
+### What to Avoid
+[Things you don't want in responses]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## PLATFORM-SPECIFIC NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### Migrating From: [Platform name]
+- Key features used: [List]
+- Established workflows: [Describe]
+- Data being transferred: [Conversations/Projects/Memories]
+
+### Migrating To: [Platform name]
+- Equivalent features: [Map features]
+- Setup requirements: [List]
+- Known limitations: [What won't transfer]</div>
+                        <button class="copy-btn" onclick="copyToClipboard('full-context')">📋 Copy</button>
+                    </div>
+
+                    <div class="template-section">
+                        <h4>Construction Industry Template</h4>
+                        <div class="prompt-box" id="construction-context"># Construction Professional Context
+
+## PROFILE
+- Name: [Your name]
+- Role: [e.g., Project Manager, Superintendent, Estimator]
+- Company: [Company name]
+- Company Type: [GC/Subcontractor/Specialty/Owner]
+- Project Types: [Residential/Commercial/Industrial/TI]
+
+## DOCUMENT WORK
+### Frequently Created
+- RFIs (Request for Information)
+- Submittals
+- Change Orders
+- Bid Proposals
+- Daily Reports
+- Safety Documentation
+- Client Communications
+- Subcontractor Coordination
+
+### Templates/Formats Used
+[Describe any established formats]
+
+## STAKEHOLDERS
+- Owners/Developers
+- General Contractors
+- Subcontractors: [List trades you work with]
+- Architects/Engineers
+- Inspectors
+- Suppliers
+
+## TERMINOLOGY
+Common acronyms: DB, DBB, CMAR, GMP, NTP, RFI, ASI, CCD, PCO
+[Add your commonly used terms]
+
+## PREFERENCES
+- Tone: Professional but accessible
+- Format: Clear action items, bullet points
+- Detail: Technical accuracy important
+- Length: Concise unless complex topic
+
+## WORKFLOW PATTERNS
+[Describe how you typically work with AI on construction tasks]</div>
+                        <button class="copy-btn" onclick="copyToClipboard('construction-context')">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOMIZABLE MIGRATION PROMPT -->
+            <div class="card" style="border: 2px solid #e94560; background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(26, 26, 46, 0.8));">
+                <h3>💬 Customizable Migration Prompt (Use in Any LLM)</h3>
+                <p>Paste this in your SOURCE platform to generate migration content for your TARGET platform:</p>
+
+                <div class="prompt-box" id="universal-migration-prompt" style="font-size: 0.9rem;">I am migrating from [CURRENT PLATFORM: ChatGPT/Claude/Gemini/Copilot/DeepSeek] to [TARGET PLATFORM: ChatGPT/Claude/Gemini/Copilot/DeepSeek].
+
+Please compile a comprehensive migration document that includes:
+
+## 1. USER PROFILE & CONTEXT
+Everything you know about me from our conversations, including:
+- My name, role, company, industry
+- How I've described my work
+- My expertise level and areas of focus
+
+## 2. ESTABLISHED PREFERENCES
+- Tone preference (professional/casual)
+- Response length (brief/medium/detailed)
+- Format preference (bullets/paragraphs/tables)
+- Communication patterns that work well
+- Things to avoid
+
+## 3. WORK CONTEXT
+- Types of tasks I request most often
+- Documents I frequently create
+- Stakeholders I communicate with
+- Industry-specific terminology I use
+- Templates or formats we've established
+
+## 4. CONVERSATION HISTORY SUMMARY
+For each key conversation topic we've explored:
+- Topic: [What we discussed]
+- Outcome: [What we accomplished]
+- Pattern: [How we approached it]
+- Notes: [What to preserve]
+
+## 5. PROJECT/KNOWLEDGE EXPORT (if applicable)
+- Custom instructions or system prompts I've set
+- Knowledge files or documents (summarize if extensive)
+- Saved prompts or templates
+- Established workflows
+
+## 6. PLATFORM-SPECIFIC FORMATTING
+Format this document optimally for [TARGET PLATFORM]:
+- ChatGPT: Split into "What ChatGPT should know" + "How to respond"
+- Claude: Format for Project Instructions
+- Gemini: Format for Gem instructions
+- Copilot: Format for Copilot Studio
+- DeepSeek: Format for conversation-based context
+
+## 7. TRANSFER INSTRUCTIONS
+Provide step-by-step instructions for:
+1. Where to paste this content in [TARGET PLATFORM]
+2. What features to set up
+3. Any limitations or workarounds needed
+4. How to verify the transfer worked
+
+## 8. FIRST MESSAGE TEMPLATE
+Give me a first message to send to [TARGET PLATFORM] that helps establish continuity.
+
+## ADDITIONAL CONTEXT:
+- My industry: [CONSTRUCTION/TECH/FINANCE/HEALTHCARE/OTHER]
+- Primary use case: [DESCRIBE YOUR TOP 3 USES]
+- Frequency: [HOW OFTEN YOU USE AI]
+- Any specific concerns: [DATA PRIVACY/FEATURE LOSS/WORKFLOW CHANGES]</div>
+                <button class="copy-btn" onclick="copyToClipboard('universal-migration-prompt')">📋 Copy</button>
+
+                <p style="margin-top: 20px; color: #a1a1aa;"><em>Edit the bracketed sections before sending. Fill in as much detail as possible for best results.</em></p>
+            </div>
+
+            <!-- QUICK ACTION PROMPTS -->
+            <div class="card">
+                <h3>⚡ Quick Migration Prompts</h3>
+                <p>Short prompts for specific migration needs:</p>
+
+                <div class="quick-prompts-grid">
+                    <div class="quick-prompt">
+                        <strong>Custom Instructions Only</strong>
+                        <div class="prompt-box-mini" id="quick-instructions">Extract my preferences and create two ChatGPT custom instruction blocks: (1) "What ChatGPT should know about me" and (2) "How ChatGPT should respond."</div>
+                        <button class="copy-btn-mini" onclick="copyToClipboard('quick-instructions')">📋</button>
+                    </div>
+                    <div class="quick-prompt">
+                        <strong>Conversation Summary</strong>
+                        <div class="prompt-box-mini" id="quick-convo">Summarize our conversation history into key topics, outcomes, and patterns that I can transfer to another AI.</div>
+                        <button class="copy-btn-mini" onclick="copyToClipboard('quick-convo')">📋</button>
+                    </div>
+                    <div class="quick-prompt">
+                        <strong>Preferences Extract</strong>
+                        <div class="prompt-box-mini" id="quick-prefs">Based on our interactions, document: my preferred tone, response length, format style, and communication patterns.</div>
+                        <button class="copy-btn-mini" onclick="copyToClipboard('quick-prefs')">📋</button>
+                    </div>
+                    <div class="quick-prompt">
+                        <strong>Project Export</strong>
+                        <div class="prompt-box-mini" id="quick-project">Export all knowledge from this project/task in a format I can recreate elsewhere.</div>
+                        <button class="copy-btn-mini" onclick="copyToClipboard('quick-project')">📋</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div id="memory-blocks" class="tab-content">
 
         <div id="memory-blocks" class="tab-content">
             <div class="card">
