@@ -22,21 +22,18 @@
         .btn { display: inline-block; background: linear-gradient(135deg, #e94560, #ff6b8a); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 5px; }
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
         .sidebar { background: rgba(22, 33, 62, 0.5); border-radius: 8px; padding: 15px; margin: 15px 0; }
-        .sidebar h4 { color: #e94560; margin-bottom: 10px; }
-        .warning { background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
         .tip { background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+        .warning { background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
         .toc { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .toc h3 { color: #e94560; margin-bottom: 10px; }
         .toc ul { list-style: none; }
         .toc li { padding: 5px 0; }
         .toc a { color: #a1a1aa; text-decoration: none; }
         .toc a:hover { color: #e94560; }
-        .platform-card { background: rgba(22, 33, 62, 0.5); border: 1px solid rgba(233, 69, 96, 0.2); border-radius: 8px; padding: 20px; margin: 15px 0; }
-        .platform-card h4 { color: #fff; margin-bottom: 10px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
-        .feature-item { background: rgba(13, 17, 23, 0.8); padding: 10px; border-radius: 6px; text-align: center; }
-        .feature-item strong { color: #e94560; display: block; }
-        .feature-item span { color: #a1a1aa; font-size: 0.85rem; }
+        .collapsible { cursor: pointer; }
+        .collapse-content { display: none; padding: 15px 0; }
+        .collapse-content.show { display: block; }
+        .platform-card { background: rgba(22, 33, 62, 0.5); border-radius: 8px; padding: 15px; margin: 10px 0; border-left: 3px solid #e94560; }
     </style>
 </head>
 <body>
@@ -47,458 +44,362 @@
             <p style="color: #a1a1aa; margin-top: 10px;">How to create your own Creator Agent on any AI platform</p>
         </div>
 
-        <!-- Table of Contents -->
         <div class="toc">
             <h3>📑 Quick Navigation</h3>
             <ul>
-                <li><a href="#overview">🤖 Creator Agent Overview</a></li>
-                <li><a href="#system-prompt">📝 Core System Prompt Template</a></li>
-                <li><a href="#chatgpt-setup">🟢 ChatGPT Setup</a></li>
-                <li><a href="#claude-setup">🔷 Claude Projects Setup</a></li>
-                <li><a href="#gemini-setup">✨ Gemini Gems Setup</a></li>
-                <li><a href="#copilot-setup">🔵 Microsoft Copilot Setup</a></li>
-                <li><a href="#letta-setup">🧠 Letta Agent Setup</a></li>
-                <li><a href="#memory-blocks">🧠 Recommended Memory Blocks</a></li>
+                <li><a href="#overview">🎯 Overview</a></li>
+                <li><a href="#core-prompt">📝 Core System Prompt</a></li>
+                <li><a href="#platform-chatgpt">🟢 ChatGPT Setup</a></li>
+                <li><a href="#platform-claude">🔷 Claude Setup</a></li>
+                <li><a href="#platform-gemini">✨ Gemini Setup</a></li>
+                <li><a href="#platform-copilot">🔵 Copilot Setup</a></li>
+                <li><a href="#platform-letta">🧠 Letta Setup</a></li>
                 <li><a href="#tools">🔧 Essential Tools</a></li>
-                <li><a href="#customization">⚙️ Customization Options</a></li>
-                <li><a href="#testing">🧪 Testing Your Creator Agent</a></li>
+                <li><a href="#memory">📚 Memory Blocks</a></li>
+                <li><a href="#customization">🎨 Customization</a></li>
             </ul>
         </div>
 
-        <!-- OVERVIEW -->
         <div class="card" id="overview">
-            <h2>🤖 Creator Agent Overview</h2>
-            <p>A Creator Agent is an AI agent specifically designed to help you build other AI agents. It acts as an AI architect—researching, designing, and building agents with proper system prompts, memory, and tools.</p>
+            <h2>🎯 Overview</h2>
+            <p>A Creator Agent is defined primarily by its system prompt - the instructions that tell it how to behave. The same core prompt works across all platforms, but each platform has different capabilities:</p>
 
-            <h3>What a Creator Agent Does</h3>
-            <ol class="step-list">
-                <li><strong>Research</strong> - Investigates frameworks, best practices, and domain knowledge</li>
-                <li><strong>Analyze</strong> - Evaluates requirements and provides recommendations</li>
-                <li><strong>Design</strong> - Creates agent architecture (prompts, memory, tools)</li>
-                <li><strong>Build</strong> - Creates the actual agent on the target platform</li>
-                <li><strong>Document</strong> - Records decisions, rationale, and processes</li>
-                <li><strong>Iterate</strong> - Refines based on feedback</li>
-            </ol>
-
-            <h3>Core Capabilities Needed</h3>
-            <div class="feature-grid">
-                <div class="feature-item"><strong>Research</strong><span>Web search</span></div>
-                <div class="feature-item"><strong>Context</strong><span>Long memory</span></div>
-                <div class="feature-item"><strong>Reasoning</strong><span>Complex analysis</span></div>
-                <div class="feature-item"><strong>Creation</strong><span>Build outputs</span></div>
-                <div class="feature-item"><strong>Iteration</strong><span>Refine based on feedback</span></div>
-                <div class="feature-item"><strong>Documentation</strong><span>Record process</span></div>
+            <div class="sidebar">
+                <table style="width: 100%;">
+                    <tr style="border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
+                        <th style="text-align: left; padding: 10px; color: #e94560;">Platform</th>
+                        <th style="text-align: left; padding: 10px; color: #e94560;">Capabilities</th>
+                        <th style="text-align: left; padding: 10px; color: #e94560;">Limitations</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
+                        <td style="padding: 10px;">ChatGPT</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Easy setup, web search, code execution</td>
+                        <td style="padding: 10px; color: #a1a1aa;">No persistent memory across sessions</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
+                        <td style="padding: 10px;">Claude</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Projects, long context, excellent doc handling</td>
+                        <td style="padding: 10px; color: #a1a1aa;">No built-in web search (use artifacts)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
+                        <td style="padding: 10px;">Gemini</td>
+                        <td style="padding: 10px; color: #a1a1aa;"> Gems, Google integration, free tier</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Less specialized for coding</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
+                        <td style="padding: 10px;">Copilot</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Microsoft 365 integration, enterprise</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Corporate restrictions may apply</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Letta</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Full memory, tools, API, creates other agents</td>
+                        <td style="padding: 10px; color: #a1a1aa;">Learning curve, account required</td>
+                    </tr>
+                </table>
             </div>
         </div>
 
-        <!-- SYSTEM PROMPT TEMPLATE -->
-        <div class="card" id="system-prompt">
-            <h2>📝 Core System Prompt Template</h2>
-            <p>Use this system prompt as the foundation for your Creator Agent. Customize based on your needs and platform.</p>
+        <div class="card" id="core-prompt">
+            <h2>📝 Core Creator Agent System Prompt</h2>
+            <p>Use this prompt as the foundation. It works on all platforms:</p>
 
             <div class="prompt-box">You are a Creator Agent - an AI that builds AI agents.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CORE WORKFLOW
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## YOUR IDENTITY
+You specialize in designing and creating AI agents for various use cases. You understand agent architectures, memory patterns, tool integrations, and best practices for prompt engineering.
 
-1. RECEIVE REQUESTS
-- Listen to what the user wants to build
-- Ask clarifying questions before proposing solutions
-- Understand the target audience, use case, and constraints
+## YOUR WORKFLOW
+1. **Receive requests** for new agent creation
+2. **Research** frameworks, best practices, and domain knowledge
+3. **Analyze** requirements and provide recommendations
+4. **Gather detailed specifications** through clarifying questions
+5. **Design** agent architecture (persona, system prompt, tools, memory)
+6. **Create** the agent (on platforms that support it) or provide complete specifications
+7. **Document** the entire process for replication
 
-2. RESEARCH & ANALYZE
-- Research relevant frameworks, best practices, patterns
-- Investigate platform-specific capabilities and limitations
-- Identify what makes similar agents successful
-- Document findings and trade-offs
+## YOUR PRINCIPLES
+- **Always research before recommending** - Don't guess; search for best practices
+- **Ask clarifying questions** - Never assume; gather missing information
+- **Consider platform constraints** - Different platforms have different capabilities
+- **Document decisions and rationale** - Every choice should have a "why"
+- **Create agents that provide real value** - Focus on genuine utility over clever features
+- **Iterate based on feedback** - First attempts are starting points, not endings
 
-3. DESIGN ARCHITECTURE
-- Design the agent's identity and personality
-- Plan memory block structure
-- Select appropriate tools and capabilities
-- Create the system prompt
-- Document decisions and rationale
+## YOUR EXPERTISE
+- Prompt engineering frameworks (CTF, RTCCO, RASCEF, etc.)
+- Agent memory architectures (persona, human, working memory)
+- Tool integration patterns
+- Conversational AI best practices
+- Domain-specific knowledge synthesis
+- Platform-specific optimization
 
-4. BUILD THE AGENT
-- Create agent with proper configuration
-- Attach necessary tools
-- Set up memory blocks
-- Test basic functionality
-
-5. DOCUMENT & ITERATE
-- Document the entire creation process
-- Report results to user
-- Iterate based on feedback
-- Refine until requirements are met
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-KEY PRINCIPLES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-- Always research before recommending
-- Ask clarifying questions - don't assume
-- Consider platform constraints and capabilities
-- Document decisions and rationale
-- Create agents that provide real value, not just functionality
-- Iterate openly - first drafts are rarely final
-- Be decisive but thorough in analysis
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-OUTPUT STANDARDS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-When creating agents, always provide:
-- Complete system prompt
-- Memory block specifications
-- Tool recommendations
-- Setup instructions
-- Documentation of decisions
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-COMMUNICATION STYLE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-- Technical but clear
-- Focus on decisions and implementations
-- Explain rationale, not just results
-- Be proactive in identifying issues
-- Celebrate successes, learn from failures</div>
+## HOW YOU INTERACT
+- Start by understanding the user's goal and context
+- Ask targeted questions to fill information gaps
+- Provide reasoning for your recommendations
+- Offer concrete code/prompt examples
+- Create documentation alongside implementation
+- Suggest improvements and alternatives</div>
 
             <div class="tip">
-                <strong>💡 Customization:</strong> Modify the communication style section to match your preferences. Add domain-specific knowledge sections based on what types of agents you plan to create.
+                <strong>💡 Customization:</strong> Adjust the system prompt for your specific use case. Add domain expertise, preferred frameworks, or project-specific constraints.
             </div>
         </div>
 
-        <!-- CHATGPT SETUP -->
-        <div class="card" id="chatgpt-setup">
+        <div class="card" id="platform-chatgpt">
             <h2>🟢 ChatGPT Setup</h2>
-            <p>Creating a Creator Agent in ChatGPT using Custom Instructions:</p>
 
-            <div class="platform-card">
-                <h4>Method 1: Custom Instructions (Free & Plus)</h4>
-                <ol class="step-list">
-                    <li><strong>Open Settings</strong> - Click your profile → Settings</li>
-                    <li><strong>Go to Customization</strong> - Select "Custom Instructions"</li>
-                    <li><strong>Field 1: "What would you like ChatGPT to know about you?"</strong>
-                        <div class="prompt-box" style="margin-top: 10px;">I use ChatGPT to create other AI agents. I want it to research best practices, ask clarifying questions, design agent architecture, and help me build agents for various platforms.</div>
-                    </li>
-                    <li><strong>Field 2: "How would you like ChatGPT to respond?"</strong>
-                        <div class="prompt-box" style="margin-top: 10px;">[Paste the Core System Prompt Template from above]</div>
-                    </li>
-                    <li><strong>Save</strong> - Click Save changes</li>
-                </ol>
-            </div>
+            <h3>Method 1: Custom Instructions (Simplest)</h3>
+            <ol class="step-list">
+                <li>Go to Settings → Personalization → Custom Instructions</li>
+                <li>In <strong>"What would you like ChatGPT to know about you?"</strong>, paste:
+                    <div class="prompt-box">I use you as a Creator Agent to help me build AI agents. You have expertise in prompt engineering, agent architecture, and tool integration.</div>
+                </li>
+                <li>In <strong>"How would you like ChatGPT to respond?"</strong>, paste the Core System Prompt above</li>
+                <li>Save and start chatting</li>
+            </ol>
 
-            <div class="platform-card">
-                <h4>Method 2: Create a GPT (Plus only)</h4>
-                <ol class="step-list">
-                    <li><strong>Go to Explore</strong> - Click "Explore GPTs" in sidebar</li>
-                    <li><strong>Create GPT</strong> - Click "+ Create"</li>
-                    <li><strong>Configure Tab</strong>:
-                        <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                            <li><strong>Name:</strong> "Creator Agent"</li>
-                            <li><strong>Description:</strong> "AI architect that builds AI agents"</li>
-                            <li><strong>Instructions:</strong> Paste full system prompt</li>
-                            <li><strong>Capabilities:</strong> Enable Web Browsing</li>
-                        </ul>
-                    </li>
-                    <li><strong>Save</strong> - Click Save and choose who can access</li>
-                </ol>
-            </div>
+            <h3>Method 2: Create a GPT (More Powerful)</h3>
+            <ol class="step-list">
+                <li>Go to "Explore GPTs" → "Create"</li>
+                <li>Configure the GPT:
+                    <div class="sidebar">
+                        <p><strong>Name:</strong> Creator Agent</p>
+                        <p><strong>Description:</strong> AI that builds AI agents</p>
+                        <p><strong>Instructions:</strong> Paste the Core System Prompt</p>
+                        <p><strong>Capabilities:</strong> Enable Web Browsing, Code Interpreter</p>
+                    </div>
+                </li>
+                <li>Add knowledge files if you have templates</li>
+                <li>Save (private) or Publish (if you have Plus)</li>
+            </ol>
 
-            <h3>ChatGPT Limitations</h3>
             <div class="warning">
-                <strong>⚠️ Note:</strong> ChatGPT Custom Instructions are limited in character count. Use the GPT builder for longer prompts. No persistent memory between sessions unless using Projects (Plus feature).
+                <strong>⚠️ ChatGPT Limitation:</strong> No persistent memory across long projects. If you're building multiple agents over time, the Creator will "forget" previous work unless you re-state context each session.
             </div>
         </div>
 
-        <!-- CLAUDE SETUP -->
-        <div class="card" id="claude-setup">
-            <h2>🔷 Claude Projects Setup</h2>
-            <p>Claude Projects offer the best environment for Creator Agents due to long context and project features:</p>
+        <div class="card" id="platform-claude">
+            <h2>🔷 Claude Setup</h2>
 
-            <div class="platform-card">
-                <h4>Creating a Creator Agent Project</h4>
-                <ol class="step-list">
-                    <li><strong>Go to Claude</strong> - Visit <a href="https://claude.ai" target="_blank" style="color: #e94560;">claude.ai</a></li>
-                    <li><strong>Create Project</strong> - Click "+ Create Project" in sidebar</li>
-                    <li><strong>Name Project</strong> - "Creator Agent" or similar</li>
-                    <li><strong>Add Project Instructions</strong>:
-                        <div class="prompt-box" style="margin-top: 10px;">[Paste the full Core System Prompt Template from above]</div>
-                    </li>
-                    <li><strong>Add Knowledge Files (Optional)</strong>:
-                        <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                            <li>Upload framework documentation</li>
-                            <li>Add example agent prompts</li>
-                            <li>Include platform capability guides</li>
+            <h3>Create a Project</h3>
+            <ol class="step-list">
+                <li>Go to claude.ai → Projects → "Create Project"</li>
+                <li>Give it a name: "Creator Agent"</li>
+                <li>In <strong>Project Instructions</strong>, paste the Core System Prompt above</li>
+                <li>Add custom knowledge:
+                    <div class="sidebar">
+                        <ul style="list-style: none; color: #a1a1aa;">
+                            <li>• Framework references (paste as documents)</li>
+                            <li>• Agent templates</li>
+                            <li>• Example prompts</li>
+                            <li>• Memory block schemas</li>
                         </ul>
-                    </li>
-                    <li><strong>Start Creating</strong> - Begin conversation within the project</li>
-                </ol>
-            </div>
+                    </div>
+                </li>
+                <li>Start chatting within the Project</li>
+            </ol>
 
             <h3>Claude Advantages</h3>
             <div class="tip">
-                <strong>✅ Why Claude is Excellent for Creator Agents:</strong>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>200K context window</strong> - Handle complex research and long outputs</li>
-                    <li><strong>Project persistence</strong> - All context saved within project</li>
-                    <li><strong>Knowledge files</strong> - Upload reference documents</li>
-                    <li><strong>Artifacts</strong> - Generate and display code cleanly</li>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>Large context:</strong> Upload entire documentation as knowledge files</li>
+                    <li><strong>Persistent:</strong> Project stays in your workspace</li>
+                    <li><strong>Artifacts:</strong> Creator can generate code artifacts you can download</li>
+                    <li><strong>Excellent for long documents:</strong> Great for complex agent specifications</li>
                 </ul>
             </div>
         </div>
 
-        <!-- GEMINI SETUP -->
-        <div class="card" id="gemini-setup">
-            <h2>✨ Gemini Gems Setup</h2>
-            <p>Google's Gemini offers Gems as customizable AI assistants:</p>
+        <div class="card" id="platform-gemini">
+            <h2>✨ Gemini Setup</h2>
 
-            <div class="platform-card">
-                <h4>Creating a Creator Agent Gem</h4>
-                <ol class="step-list">
-                    <li><strong>Go to Gemini</strong> - Visit <a href="https://gemini.google.com" target="_blank" style="color: #e94560;">gemini.google.com</a></li>
-                    <li><strong>Gem Manager</strong> - Click "Gem Manager" or "+ New Gem"</li>
-                    <li><strong>Name Your Gem</strong> - "Creator Agent"</li>
-                    <li><strong>Add Instructions</strong>:
-                        <div class="prompt-box" style="margin-top: 10px;">[Paste the Core System Prompt Template]</div>
-                    </li>
-                    <li><strong>Save</strong> - Click Save Gem</li>
-                    <li><strong>Use</strong> - Click on your Gem to start creating agents</li>
-                </ol>
-            </div>
+            <h3>Create a Gem</h3>
+            <ol class="step-list">
+                <li>Go to gemini.google.com</li>
+                <li>Click "Gem Manager" or "Create Gem"</li>
+                <li>Configure:
+                    <div class="sidebar">
+                        <p><strong>Name:</strong> Creator Agent</p>
+                        <p><strong>Instructions:</strong> Paste the Core System Prompt</p>
+                        <p><strong>Files:</strong> Upload any templates or references</p>
+                    </div>
+                </li>
+                <li>Save and start chatting</li>
+            </ol>
 
-            <h3>Gemini Features</h3>
+            <h3>Gemini Considerations</h3>
             <div class="sidebar">
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Gem persistence:</strong> Instructions saved across sessions</li>
-                    <li><strong>Google integration:</strong> Access to Google Search and Workspace</li>
-                    <li><strong>Long context:</strong> Gemini 1.5 Pro has 1M+ token context</li>
-                </ul>
+                <p><strong>Pros:</strong> Free tier available, good Google integration, simple interface</p>
+                <p style="margin-top: 10px; color: #a1a1aa;"><strong>Note:</strong> Gemini works well for general agent creation but may be less specialized for technical prompt engineering compared to Claude.</p>
             </div>
         </div>
 
-        <!-- COPILOT SETUP -->
-        <div class="card" id="copilot-setup">
+        <div class="card" id="platform-copilot">
             <h2>🔵 Microsoft Copilot Setup</h2>
-            <p>Copilot has limited customization compared to other platforms:</p>
 
-            <div class="platform-card">
-                <h4>Option 1: Copilot Pro - Custom Instructions</h4>
-                <ol class="step-list">
-                    <li><strong>Go to Copilot</strong> - Visit copilot.microsoft.com</li>
-                    <li><strong>Settings</strong> - Click settings/manage</li>
-                    <li><strong>Custom Instructions</strong> - Add creator agent context</li>
-                    <li><strong>Save</strong> - Apply settings</li>
-                </ol>
-            </div>
+            <h3>Using Copilot Studio (Enterprise)</h3>
+            <ol class="step-list">
+                <li>Go to copilotstudio.microsoft.com</li>
+                <li>Create a new copilot</li>
+                <li>In <strong>Instructions</strong>, paste the Core System Prompt</li>
+                <li>Add knowledge sources (SharePoint, OneDrive, web)</li>
+                <li>Configure topics and triggers</li>
+                <li>Test and publish</li>
+            </ol>
 
-            <div class="platform-card">
-                <h4>Option 2: Copilot Studio (Business)</h4>
-                <ol class="step-list">
-                    <li><strong>Access Copilot Studio</strong> - copilotstudio.microsoft.com</li>
-                    <li><strong>Create Agent</strong> - New conversational agent</li>
-                    <li><strong>Add Topics</strong> - Research, Design, Build, Document</li>
-                    <li><strong>Add Knowledge</strong> - Upload reference documents</li>
-                    <li><strong>Publish</strong> - Deploy to your organization</li>
-                </ol>
-            </div>
+            <h3>Custom Instructions (Consumer)</h3>
+            <ol class="step-list">
+                <li>Go to Copilot settings</li>
+                <li>Find customization/personalization options</li>
+                <li>Add the Core System Prompt as context</li>
+            </ol>
 
             <div class="warning">
-                <strong>⚠️ Copilot Limitations:</strong> Less flexible for custom agent creation. Best for Microsoft 365 integrated workflows. Copilot Studio requires business license.
+                <strong>⚠️ Enterprise Note:</strong> If using Copilot through an organization, capabilities may be restricted by your IT department.
             </div>
         </div>
 
-        <!-- LETTA SETUP -->
-        <div class="card" id="letta-setup">
-            <h2>🧠 Letta Agent Setup</h2>
-            <p>Letta provides the most powerful environment for Creator Agents with persistent memory and tool access:</p>
+        <div class="card" id="platform-letta">
+            <h2>🧠 Letta Setup (Most Capable)</h2>
 
-            <div class="platform-card">
-                <h4>Creating a Creator Agent in Letta</h4>
-                <ol class="step-list">
-                    <li><strong>Go to Letta</strong> - Visit <a href="https://app.letta.com" target="_blank" style="color: #e94560;">app.letta.com</a></li>
-                    <li><strong>Create Agent</strong> - Click "+ Create Agent"</li>
-                    <li><strong>Basic Configuration</strong>:
-                        <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                            <li><strong>Name:</strong> Creator Agent</li>
-                            <li><strong>Model:</strong> openai/gpt-4o or claude-sonnet-4-5</li>
-                        </ul>
-                    </li>
-                    <li><strong>System Prompt</strong> - Paste the Core System Prompt Template</li>
-                    <li><strong>Add Memory Blocks</strong> - See Recommended Memory Blocks below</li>
-                    <li><strong>Attach Tools</strong> - See Essential Tools below</li>
-                    <li><strong>Create</strong> - Click Create Agent</li>
-                </ol>
-            </div>
+            <h3>Create a Creator Agent in Letta</h3>
+            <ol class="step-list">
+                <li>Go to <a href="https://app.letta.com" target="_blank" style="color: #e94560;">app.letta.com</a> and log in</li>
+                <li>Click "Create Agent"</li>
+                <li>Configure:
+                    <div class="sidebar">
+                        <p><strong>Name:</strong> Creator Agent</p>
+                        <p><strong>Model:</strong> openai/gpt-4o or anthropic/claude-sonnet (recommended)</p>
+                        <p><strong>System Prompt:</strong> Paste the Core System Prompt</p>
+                    </div>
+                </li>
+                <li>Add memory blocks:
+                    <div class="sidebar">
+                        <p><strong>persona</strong> - Agent identity</p>
+                        <p><strong>human</strong> - Your profile and preferences</p>
+                        <p style="margin-top: 10px;"><strong>created_agents</strong> - Log of agents created</p>
+                        <p><strong>creation_patterns</strong> - Documented best practices</p>
+                        <p><strong>frameworks_knowledge</strong> - Research findings</p>
+                    </div>
+                </li>
+                <li>Attach tools:
+                    <div class="sidebar">
+                        <p>✓ web_search (research)</p>
+                        <p>✓ memory tools (create, edit)</p>
+                        <p>✓ conversation_search (recall context)</p>
+                        <p>✓ archival_memory (store knowledge)</p>
+                        <p>✓ run_code_with_tools (execute builds)</p>
+                    </div>
+                </li>
+                <li>Click "Create" and start chatting</li>
+            </ol>
 
-            <h3>Letta Advantages</h3>
             <div class="tip">
-                <strong>✅ Why Letta is Ideal for Creator Agents:</strong>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Memory blocks:</strong> Persistent storage for created agents and decisions</li>
-                    <li><strong>Tool access:</strong> Web search, code execution, file operations</li>
-                    <li><strong>Agent creation:</strong> Can actually create other Letta agents via API</li>
-                    <li><strong>Self-documenting:</strong> Built-in memory tools for recording process</li>
-                </ul>
+                <strong>💡 Letta Advantage:</strong> Unlike other platforms, Letta Creator Agents can actually CREATE other Letta agents via API. They have true execution capability, not just recommendations.
             </div>
         </div>
 
-        <!-- RECOMMENDED MEMORY BLOCKS -->
-        <div class="card" id="memory-blocks">
-            <h2>🧠 Recommended Memory Blocks</h2>
-            <p>If your platform supports memory blocks (Letta), add these:</p>
-
-            <h3>Core Blocks</h3>
-            <div class="sidebar">
-                <div class="prompt-box"><strong>persona</strong>
-Description: Creator Agent identity and workflow
-Content: Who I am, my workflow, how I approach agent creation
-
-<strong>human</strong>
-Description: User information
-Content: User's name, preferences, types of agents they want to create
-
-<strong>created_agents</strong>
-Description: Log of all agents created
-Content: Agent names, IDs, purposes, creation dates, status
-
-<strong>creation_log</strong>
-Description: Detailed creation history
-Content: What was created, how, why, decisions made, lessons learned
-
-<strong>best_practices</strong>
-Description: Accumulated knowledge about agent creation
-Content: Frameworks, patterns, platform specifics, dos and don'ts</div>
-            </div>
-
-            <h3>Optional Advanced Blocks</h3>
-            <div class="sidebar">
-                <div class="prompt-box"><strong>platform_knowledge</strong>
-Description: Platform-specific capabilities and limitations
-Content: What each AI platform can/cannot do, tool availability
-
-<strong>template_library</strong>
-Description: Reusable agent templates
-Content: Common agent patterns, starter prompts, configurations
-
-<strong>user_feedback</strong>
-Description: Feedback on created agents
-Content: What worked, what didn't, improvements requested</div>
-            </div>
-        </div>
-
-        <!-- ESSENTIAL TOOLS -->
         <div class="card" id="tools">
-            <h2>🔧 Essential Tools</h2>
-            <p>Creator Agents benefit from these capabilities:</p>
+            <h2>🔧 Essential Tools for Creator Agents</h2>
 
-            <h3>Research Tools</h3>
+            <h3>Core Tools (All Platforms)</h3>
             <div class="sidebar">
-                <h4>Web Search</h4>
-                <p style="color: #a1a1aa;">Essential for researching frameworks, best practices, and platform capabilities. Look for: "web_search" tool or built-in browsing.</p>
+                <div class="platform-card">
+                    <strong>Web Search / Browse</strong>
+                    <p style="color: #a1a1aa;">Research frameworks, best practices, documentation</p>
+                </div>
+                <div class="platform-card">
+                    <strong>Code Execution / Interpreter</strong>
+                    <p style="color: #a1a1aa;">Run code to generate outputs, test agents, build docs</p>
+                </div>
+                <div class="platform-card">
+                    <strong>Document Handling</strong>
+                    <p style="color: #a1a1aa;">Upload templates, read references, generate specs</p>
+                </div>
             </div>
 
-            <h3>Memory Tools</h3>
+            <h3>Advanced Tools (Letta Only)</h3>
             <div class="sidebar">
-                <h4>Persistent Storage</h4>
-                <p style="color: #a1a1aa;">For storing created agents, decisions, and templates. Look for: memory blocks, knowledge files, or project context.</p>
-            </div>
-
-            <h3>Code Execution</h3>
-            <div class="sidebar">
-                <h4>Run Code</h4>
-                <p style="color: #a1a1aa;">For building websites, testing outputs, and working with APIs. Look for: "run_code_with_tools", "code interpreter", or similar.</p>
-            </div>
-
-            <h3>Document Tools</h3>
-            <div class="sidebar">
-                <h4>File Access</h4>
-                <p style="color: #a1a1aa;">For reading templates, examples, and saving outputs. Look for: file upload/download, GitHub integration.</p>
-            </div>
-
-            <div class="tip">
-                <strong>💡 Platform Tool Availability:</strong>
-                <ul style="margin-left: 20px; margin-top: 10px; color: #a1a1aa;">
-                    <li><strong>ChatGPT:</strong> Web Browsing, Code Interpreter, File Upload</li>
-                    <li><strong>Claude:</strong> Artifacts (code display), Knowledge Files</li>
-                    <li><strong>Gemini:</strong> Google Search, Workspace integration</li>
-                    <li><strong>Letta:</strong> Full tool library including memory, code, search</li>
-                </ul>
+                <div class="platform-card">
+                    <strong>create_letta_agent</strong>
+                    <p style="color: #a1a1aa;">Actually create new agents via API</p>
+                </div>
+                <div class="platform-card">
+                    <strong>create_letta_tool</strong>
+                    <p style="color: #a1a1aa;">Build custom tools for created agents</p>
+                </div>
+                <div class="platform-card">
+                    <strong>Memory Tools</strong>
+                    <p style="color: #a1a1aa;">Manage archival and core memory for documentation</p>
+                </div>
+                <div class="platform-card">
+                    <strong>Agent-to-Agent Messaging</strong>
+                    <p style="color: #a1a1aa;">Communicate with created agents</p>
+                </div>
             </div>
         </div>
 
-        <!-- CUSTOMIZATION OPTIONS -->
+        <div class="card" id="memory">
+            <h2>📚 Memory Blocks for Creator Agents</h2>
+            <p>If your platform supports custom memory blocks (Letta, some Claude Projects), add these:</p>
+
+            <div class="prompt-box"># created_agents
+Log of all agents created: name, purpose, ID, date, status
+
+# creation_patterns
+Documented best practices: what works, common mistakes, patterns
+
+# frameworks_knowledge
+Research findings: frameworks, tools, platform capabilities
+
+# user_preferences
+How you like to work, preferred platforms, communication style
+
+# active_projects
+Current agent creation projects in progress
+
+# templates_library
+Reusable prompts, system prompt templates, agent schemas</div>
+        </div>
+
         <div class="card" id="customization">
-            <h2>⚙️ Customization Options</h2>
-            <p>Customize your Creator Agent based on your needs:</p>
+            <h2>🎨 Customization Options</h2>
 
-            <h3>Domain Specialization</h3>
-            <div class="sidebar">
-                <h4>Add domain knowledge to the system prompt:</h4>
-                <div class="prompt-box">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DOMAIN KNOWLEDGE: [CONSTRUCTION / FINANCE / HEALTHCARE / TECH]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            <h3>Add Domain Expertise</h3>
+            <div class="prompt-box">## DOMAIN EXPERTISE
+You specialize in [DOMAIN] agent creation:
+- Common use cases in [DOMAIN]: [list]
+- Key terminology: [list]
+- Typical stakeholders: [list]
+- Platform preferences in this domain: [list]</div>
 
-- Industry terminology
-- Common workflows
-- Regulatory considerations
-- Stakeholder types
-- Document types commonly used</div>
-            </div>
+            <h3>Add Workflow Constraints</h3>
+            <div class="prompt-box">## WORKFLOW CONSTRAINTS
+- Always ask about [specific requirement] before proceeding
+- Never recommend [specific tool/approach]
+- Include [specific output] in all created agents
+- Document everything in [specific format]</div>
 
-            <h3>Creation Style</h3>
-            <div class="sidebar">
-                <h4>Choose your creation approach:</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Methodical:</strong> Research → Analyze → Design → Build → Test</li>
-                    <li><strong>Rapid Prototyping:</strong> Quick first drafts, then refine</li>
-                    <li><strong>Collaborative:</strong> Check in at each phase for approval</li>
-                    <li><strong>Autonomous:</strong> Full creation cycle, report back when done</li>
-                </ul>
-            </div>
+            <h3>Add Tool-Specific Knowledge</h3>
+            <div class="prompt-box">## TOOL KNOWLEDGE
+### create_letta_agent Parameters:
+- name: Agent name
+- system_prompt: Instructions
+- memory_blocks: List of block configs
+- tools: List of tool IDs
+- model: LLM to use
 
-            <h3>Output Preferences</h3>
-            <div class="sidebar">
-                <h4>Define how you want outputs:</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Format:</strong> Complete prompts vs. outlines vs. both</li>
-                    <li><strong>Detail level:</strong> Brief summaries vs. comprehensive documentation</li>
-                    <li><strong>Code style:</strong> Copyable blocks vs. downloadable files</li>
-                </ul>
-            </div>
+### Memory Block Structure:
+{
+  "label": "block_name",
+  "value": "content",
+  "limit": character_limit,
+  "description": "what this block is for"
+}</div>
         </div>
 
-        <!-- TESTING YOUR CREATOR AGENT -->
-        <div class="card" id="testing">
-            <h2>🧪 Testing Your Creator Agent</h2>
-            <p>Once you've set up your Creator Agent, test it:</p>
-
-            <h3>Test Prompt #1: Basic Agent</h3>
-            <div class="prompt-box">Create a simple email drafting agent for me. I work in [your industry] and need help writing professional emails to clients.</div>
-
-            <h3>Test Prompt #2: Complex Agent</h3>
-            <div class="prompt-box">Create a comprehensive project management assistant that can help me track tasks, manage deadlines, and coordinate with my team. It should work on [platform].</div>
-
-            <h3>Test Prompt #3: Domain-Specific</h3>
-            <div class="prompt-box">Create an agent specialized in [your domain] that can help with [specific tasks]. The agent should understand [industry terminology] and work well with [stakeholders].</div>
-
-            <h3>What to Evaluate</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li><strong>Research:</strong> Does it research before proposing solutions?</li>
-                <li><strong>Questions:</strong> Does it ask clarifying questions?</li>
-                <li><strong>Output:</strong> Are outputs complete and usable?</li>
-                <li><strong>Documentation:</strong> Does it document decisions and rationale?</li>
-                <li><strong>Iteration:</strong> Does it refine based on feedback?</li>
-            </ul>
-
-            <div class="tip">
-                <strong>💡 Refinement:</strong> If the Creator Agent isn't meeting expectations, add more specific instructions to the system prompt. Iterate until it produces the behavior you want.
-            </div>
-        </div>
-
-        <!-- NAVIGATION -->
         <div class="nav-buttons">
             <a href="guide-creator.html" class="btn">← Previous: Using a Creator Agent</a>
             <a href="guide-setup-pea.html" class="btn">Next: Setting Up PEA →</a>
