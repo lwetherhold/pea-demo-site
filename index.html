@@ -352,43 +352,126 @@ Next, validate the PEA's System Prompt and Description to ensure that they are e
 
             <div class="card">
                 <h3>💬 Response #1 (Creator Agent → Laura)</h3>
-                <p style="margin-bottom: 15px;">Key insights from the research and analysis phase:</p>
+                <div class="prompt-box">Excellent questions, Laura. I've done thorough research on prompt engineering frameworks, construction industry AI use cases, and conversational prompt agent design. Here's my comprehensive analysis:
 
-                <div class="response-section">
-                    <h4>1. Planning Agent vs. Direct Specs?</h4>
-                    <p><strong>Recommendation:</strong> Skip the planning agent — give specs directly to the Creator. The vision was already clear enough to design effectively. A planning agent adds latency without proportional value.</p>
-                </div>
+---
 
-                <div class="response-section">
-                    <h4>2. CTF Framework Assessment</h4>
-                    <p><strong>Verdict:</strong> CTF (Context, Task, Format) is a solid <em>teaching framework</em> but insufficient as the agent's internal engine.</p>
-                    <p><strong>Recommendation:</strong> Use CTF as the surface framework for teaching, but have the agent internally apply a richer structure like RTCCO (Role, Task, Context, Constraints, Output) or RASCEF.</p>
-                </div>
+## 1. Planning Agent vs. Direct Specs?
 
-                <div class="response-section">
-                    <h4>3. Should the Agent Ask Questions?</h4>
-                    <p><strong>Absolutely yes</strong> — this is the killer feature. Detect missing information, ask about domain specifics, ask about audience and platform, offer suggestions proactively, and support iteration.</p>
-                </div>
+**My recommendation: Skip the planning agent -- give specs directly to me.**
 
-                <div class="response-section">
-                    <h4>4. Capabilities & Features for BIA Members</h4>
-                    <ul style="margin-left: 20px; color: #a1a1aa;">
-                        <li> Bid/proposal writing</li>
-                        <li> RFI responses</li>
-                        <li> Email drafting</li>
-                        <li> Safety documentation</li>
-                        <li> Client communication</li>
-                        <li> Subcontractor coordination</li>
-                        <li> Code/regulation research</li>
-                        <li> Marketing/business development</li>
-                    </ul>
-                </div>
+Here's why:
+- Your vision is already clear enough for me to design this effectively
+- A planning agent adds latency without proportional value -- I can plan *within* this conversation
+- For the demo, what matters most is a **powerful prompt engineering agent** that wows the BIA audience
+- The "plan out what messages to paste into Creator" workflow adds friction; instead, we can design the agent to be **self-initializing** -- the first conversation with it will naturally demonstrate its value
 
-                <div class="response-section">
-                    <h4>5. Tools & Memory Recommended</h4>
-                    <p><strong>Tools:</strong> send_message, conversation_search, core_memory_append/replace, web_search</p>
-                    <p><strong>Memory Blocks:</strong> persona, human, prompt_library, industry_knowledge</p>
-                </div>
+However, if you want the planning agent for the *demo flow itself* (showing the audience how to brief an AI to build an AI), that's a compelling meta-demo angle. Worth considering, but I'd build the prompt engineering agent first and see if it's sufficient.
+
+---
+
+## 2. CTF Framework Assessment
+
+**CTF (Context, Task, Format) is a solid *teaching framework* but insufficient as the agent's internal engine.**
+
+| Aspect | CTF | Verdict |
+|--------|-----|---------|
+| **Simplicity for beginners** | ✅ Only 3 parts -- easy to learn | Perfect for BIA members |
+| **Completeness** | ❌ Missing Role, Constraints, Examples, Audience | Will produce mediocre prompts |
+| **Industry-fit** | ⚠️ Doesn't naturally capture construction domain needs | Needs extension |
+
+**My recommendation: Use CTF as the *surface framework* for teaching, but have the agent internally apply a richer structure like RTCCO (Role, Task, Context, Constraints, Output) or RASCEF (Role, Action, Steps, Context, Examples, Format).**
+
+The agent should explain its work in CTF terms so BIA members learn the concept, but behind the scenes it fills in the gaps they don't know to ask about -- like assigning a role persona, adding constraints for the construction context, and specifying audience level.
+
+---
+
+## 3. Should the Agent Ask Questions?
+
+**Absolutely yes -- this is the killer feature.** This is what transforms it from a "prompt template filler" into a true *prompt engineer*.
+
+Specifically, the agent should:
+- **Detect missing information** from casual brain dumps and ask targeted questions
+- **Ask about domain specifics**: "What type of construction project?" / "Are you dealing with residential or commercial?"
+- **Ask about audience**: "Who will read this output -- a client, a superintendent, a city inspector?"
+- **Ask about platform**: "Which AI tool are you pasting this into -- ChatGPT, Claude, Gemini, Copilot?"
+- **Offer suggestions proactively**: "For a RFI response, I'd recommend also including a constraint about using standard construction terminology. Want me to add that?"
+- **Support iteration**: "Here's your prompt. Want me to make it shorter? More specific? Add an example?"
+
+This conversational approach is what makes the agent genuinely useful for non-technical users -- they don't need to know prompt engineering; they just talk naturally.
+
+---
+
+## 4. Capabilities & Features for BIA Members
+
+Based on construction industry research, the agent should support these common use cases:
+
+| Use Case | Example |
+|----------|---------|
+| **Bid/proposal writing** | "Help me write a prompt to draft a proposal for a tenant improvement project" |
+| **RFI responses** | "I need to respond to an RFI about structural steel connection details" |
+| **Email drafting** | "Draft an email to the GC about schedule delays caused by weather" |
+| **Safety documentation** | "Create a safety briefing prompt for a high-rise concrete pour" |
+| **Client communication** | "Help me explain change order pricing to a homeowner" |
+| **Subcontractor coordination** | "Draft a scope clarification for the MEP subcontractor" |
+| **Code/regulation research** | "Help me search for California energy code requirements for window U-factors" |
+| **Marketing/business development** | "Write a project case study prompt for our website" |
+
+**Key features:**
+- 🗣️ **Casual input acceptance** -- brain dumps, voice-to-text, incomplete sentences
+- 🔄 **Iterative refinement** -- "make it shorter," "more professional," "add a table"
+- 📋 **Ready-to-paste output** -- formatted prompt with clear copy boundaries
+- 📖 **Educational explanations** -- brief notes on *why* certain elements are included
+- 🏗️ **Construction domain awareness** -- knows industry terminology, common workflows, pain points
+- 💾 **Prompt library** -- saves and recalls previously crafted prompts per user
+
+---
+
+## 5. Tools & Memory Blocks
+
+### Tools Needed:
+| Tool | Purpose |
+|------|---------|
+| `send_message` | Deliver the final crafted prompt to the user |
+| `conversation_search` | Reference past conversations and prompt iterations |
+| `core_memory_append` / `core_memory_replace` | Store user preferences, prompt library, industry context |
+| `web_search` | Look up construction-specific terminology, regulations, or examples if needed |
+
+No custom tools required -- this is a **pure conversational intelligence agent**, similar to how I designed the PG Office Hours Agent (Craig). The value is in the system prompt engineering, not external tool integrations.
+
+### Memory Blocks:
+| Block | Contents |
+|-------|----------|
+| **persona** | Agent identity, CTF framework expertise, construction domain knowledge, conversation style |
+| **human** | User's name, company type (GC, sub, architect, owner), common project types, preferred AI platform |
+| **prompt_library** | Previously crafted prompts, templates, user's saved favorites |
+| **industry_knowledge** | Common construction workflows, terminology glossary, use case patterns, platform-specific tips |
+
+---
+
+## 6. Recommended Architecture
+
+```
+Agent Name: Prompt-Engineer-Agent-Laura
+Type: Conversational prompt engineering specialist
+Primary Framework: CTF (teaching) + RTCCO (internal)
+Mode: Interview-style -- asks questions, refines iteratively
+Tone: Friendly, patient, educational -- construction-industry aware
+Platform Awareness: ChatGPT, Claude, Gemini, Copilot, DeepSeek
+```
+
+---
+
+## Next Steps
+
+If this analysis aligns with your vision, here's what I need from you to start building:
+
+1. **Target AI platforms** -- Should the agent optimize prompts for specific platforms (ChatGPT, Claude, etc.) or be platform-agnostic?
+2. **SDSU AI Club branding** -- Should the agent reference the AI Club or SCC AI Subcommittee in its persona, or be a general-purpose tool the club is showcasing?
+3. **Demo scenario** -- Do you have a specific construction use case in mind for the live demo, or should I design the agent to handle any use case and you'll pick one during the demo?
+4. **Tone preference** -- More professional/formal for BIA executives, or approachable/casual for broader audience?
+
+Ready to build whenever you give the green light. 🚀</div>
             </div>
 
             <div class="card">
