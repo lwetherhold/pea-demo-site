@@ -14,7 +14,6 @@
         .card { background: rgba(26, 26, 46, 0.8); border-radius: 12px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(233, 69, 96, 0.2); }
         .card h2 { color: #e94560; margin-bottom: 15px; }
         .card h3 { color: #fff; margin: 20px 0 10px; }
-        .card h4 { color: #e94560; margin: 15px 0 8px; }
         .step-list { counter-reset: step; list-style: none; padding: 0; }
         .step-list li { counter-increment: step; padding: 15px 15px 15px 50px; position: relative; margin-bottom: 10px; background: rgba(22, 33, 62, 0.5); border-radius: 8px; }
         .step-list li::before { content: counter(step); position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: #e94560; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
@@ -22,21 +21,15 @@
         .btn { display: inline-block; background: linear-gradient(135deg, #e94560, #ff6b8a); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 5px; }
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
         .sidebar { background: rgba(22, 33, 62, 0.5); border-radius: 8px; padding: 15px; margin: 15px 0; }
-        .sidebar h4 { color: #e94560; margin-bottom: 10px; }
-        .warning { background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
         .tip { background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+        .warning { background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; }
         .toc { background: rgba(22, 33, 62, 0.5); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .toc h3 { color: #e94560; margin-bottom: 10px; }
         .toc ul { list-style: none; }
         .toc li { padding: 5px 0; }
         .toc a { color: #a1a1aa; text-decoration: none; }
         .toc a:hover { color: #e94560; }
-        .phase-card { background: rgba(233, 69, 96, 0.1); border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 8px; padding: 15px; margin: 10px 0; }
-        .phase-card h4 { color: #e94560; margin-bottom: 10px; }
-        .decision-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .decision-table th, .decision-table td { padding: 10px; text-align: left; border-bottom: 1px solid rgba(233, 69, 96, 0.2); }
-        .decision-table th { color: #e94560; }
-        .decision-table td { color: #a1a1aa; }
+        .phase-marker { display: inline-block; background: #e94560; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 10px; }
     </style>
 </head>
 <body>
@@ -44,416 +37,110 @@
         <div class="header">
             <span class="badge">Resource Guide 2 of 4</span>
             <h1>📗 Using a Creator Agent</h1>
-            <p style="color: #a1a1aa; margin-top: 10px;">Complete documentation of working with a Creator Agent to build a Prompt Engineering Agent</p>
+            <p style="color: #a1a1aa; margin-top: 10px;">Complete documentation: How Laura worked with Creator Agent to build PEA</p>
         </div>
 
-        <!-- Table of Contents -->
         <div class="toc">
             <h3>📑 Quick Navigation</h3>
             <ul>
                 <li><a href="#what-is">🤔 What is a Creator Agent?</a></li>
                 <li><a href="#any-platform">🌐 Works on Any Platform</a></li>
-                <li><a href="#complete-process">📋 Complete Documented Process</a></li>
-                <li><a href="#phase1">🔬 Phase 1: Research & Analysis</a></li>
-                <li><a href="#phase2">❓ Phase 2: Specification Gathering</a></li>
-                <li><a href="#phase3">🛠️ Phase 3: Agent Creation</a></li>
-                <li><a href="#phase4">🌐 Phase 4: Website Build</a></li>
-                <li><a href="#phase5">📄 Phase 5: Documentation</a></li>
-                <li><a href="#decisions">🎯 Key Decisions & Rationale</a></li>
-                <li><a href="#prompts">💬 Actual Prompts Used</a></li>
+                <li><a href="#process">📋 The Documented Process</a></li>
+                <li><a href="#decisions">💡 Decisions Made</a></li>
                 <li><a href="#best-practices">✅ Best Practices</a></li>
             </ul>
         </div>
 
-        <!-- WHAT IS A CREATOR AGENT -->
         <div class="card" id="what-is">
             <h2>🤔 What is a Creator Agent?</h2>
-            <p>A Creator Agent is an AI agent designed to help you build other AI agents. It acts as an AI architect—researching best practices, gathering requirements, designing architecture, and building agents with proper system prompts, memory blocks, and tools.</p>
+            <p>A Creator Agent is an AI agent specifically designed to help you build other AI agents. Think of it as an "AI architect" that understands agent design patterns, best practices, and can execute the entire creation workflow.</p>
 
-            <div class="tip">
-                <strong>💡 Key Insight:</strong> The most important part of working with a Creator Agent is being specific about what you need while remaining open to the agent's suggestions and research. The Creator Agent knows best practices you might not be aware of!
+            <h3>What Makes Creator Agents Different</h3>
+            <div class="sidebar">
+                <ul style="list-style: none; line-height: 2;">
+                    <li><strong>🎯 Specialized Knowledge</strong> - Agent architectures, memory patterns, tool integrations</li>
+                    <li><strong>📖 Research Capability</strong> - Searches frameworks, best practices, domain knowledge</li>
+                    <li><strong>🔄 Iterative Process</strong> - Gathers requirements through conversation</li>
+                    <li><strong>🏗️ Execution Ability</strong> - Actually creates agents, writes code, builds docs</li>
+                    <li><strong>📚 Documentation Mindset</strong> - Records everything for learning</li>
+                </ul>
             </div>
 
-            <h3>Why Use a Creator Agent?</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li><strong>Expert Knowledge:</strong> Creator Agents research frameworks, patterns, and best practices</li>
-                <li><strong>Systematic Approach:</strong> They follow structured workflows for agent creation</li>
-                <li><strong>Documentation:</strong> They document decisions, rationale, and processes</li>
-                <li><strong>Platform Awareness:</strong> They understand constraints across different AI platforms</li>
-                <li><strong>Iterative Refinement:</strong> They refine based on feedback until requirements are met</li>
-            </ul>
+            <div class="tip">
+                <strong>💡 Key Insight:</strong> The most important part is being specific about what you need while remaining open to suggestions. The Creator Agent knows best practices you might not be aware of!
+            </div>
         </div>
 
-        <!-- WORKS ON ANY PLATFORM -->
         <div class="card" id="any-platform">
             <h2>🌐 Works on Any Platform</h2>
-            <p>Creator Agents can be used on any AI platform. You don't need Letta specifically—any conversational AI with sufficient context can act as a Creator Agent.</p>
-
-            <h3>Platform Comparison</h3>
-            <div class="sidebar">
-                <table class="decision-table">
-                    <tr><th>Platform</th><th>Creator Capability</th><th>Best For</th></tr>
-                    <tr><td><strong>Claude</strong></td><td>Excellent - Projects support long context</td><td>Complex agent design</td></tr>
-                    <tr><td><strong>ChatGPT</strong></td><td>Good - Custom Instructions help</td><td>Quick prototyping</td></tr>
-                    <tr><td><strong>Gemini</strong></td><td>Good - Gems provide persistence</td><td>Google ecosystem users</td></tr>
-                    <tr><td><strong>Letta</strong></td><td>Excellent - Memory blocks + tools</td><td>Full agent creation</td></tr>
-                    <tr><td><strong>Copilot</strong></td><td>Moderate - Limited customization</td><td>Microsoft 365 integration</td></tr>
-                </table>
-            </div>
-
-            <h3>What You Need</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li>Ability to have extended conversations (high context limit preferred)</li>
-                <li>Option to set custom instructions or system prompts</li>
-                <li>Web search capability (helpful but not required)</li>
-                <li>Willingness to iterate through multiple conversation turns</li>
-            </ul>
-        </div>
-
-        <!-- COMPLETE DOCUMENTED PROCESS -->
-        <div class="card" id="complete-process">
-            <h2>📋 Complete Documented Process</h2>
-            <p>Below is the <strong>actual, documented process</strong> Laura (LaunchMate founder) used with the Creator Agent to build the Prompt Engineering Agent for the BIA SCC AI Subcommittee demo:</p>
-
-            <div class="phase-card">
-                <h4>Process Timeline</h4>
-                <p style="color: #a1a1aa;"><strong>Duration:</strong> Approximately 2-3 hours of active collaboration</p>
-                <p style="color: #a1a1aa;"><strong>Messages Exchanged:</strong> ~50+ back-and-forth interactions</p>
-                <p style="color: #a1a1aa;"><strong>Phases:</strong> Research → Specification → Creation → Build → Documentation</p>
-            </div>
-
-            <ol class="step-list">
-                <li><strong>Initial Request</strong> - Laura described the need for a prompt engineering agent for BIA members</li>
-                <li><strong>Research Phase</strong> - Creator Agent researched frameworks, use cases, best practices</li>
-                <li><strong>Analysis & Recommendations</strong> - Creator provided detailed analysis with key decisions</li>
-                <li><strong>Clarification Questions</strong> - Creator asked about platforms, branding, tone, features</li>
-                <li><strong>Specification Gathering</strong> - Laura provided detailed requirements</li>
-                <li><strong>Agent Architecture Design</strong> - Creator designed system prompt, memory blocks, tools</li>
-                <li><strong>Agent Creation</strong> - Creator built the PEA via API</li>
-                <li><strong>Website Build</strong> - Creator built comprehensive demo website</li>
-                <li><strong>Tidbit/Resource Guides</strong> - Creator documented everything in guides</li>
-                <li><strong>Migration Tools</strong> - Creator added transfer and migration features</li>
-            </ol>
-        </div>
-
-        <!-- PHASE 1: RESEARCH & ANALYSIS -->
-        <div class="card" id="phase1">
-            <h2>🔬 Phase 1: Research & Analysis</h2>
-            <p>The Creator Agent began by researching what makes a great prompt engineering agent:</p>
-
-            <h3>Research Conducted</h3>
-            <div class="sidebar">
-                <h4>1. Prompt Engineering Frameworks</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>CTF Framework:</strong> Context, Task, Format - Simple 3-part structure</li>
-                    <li><strong>RTCCO Framework:</strong> Role, Task, Context, Constraints, Output</li>
-                    <li><strong>RASCEF Framework:</strong> Role, Action, Steps, Context, Examples, Format</li>
-                    <li><strong>PRIME Framework:</strong> Purpose, Requirements, Instructions, Metrics, Examples</li>
-                    <li><strong>5C Framework:</strong> Clarity, Contextualization, Command, Chaining, Continuous Refinement</li>
-                    <li><strong>P.R.O.M.P.T. Framework:</strong> Purpose, Results Format, Obstacles, Mindset, Preferences, Technical</li>
-                </ul>
-            </div>
+            <p>You don't need Letta specifically. Creator Agents work across platforms:</p>
 
             <div class="sidebar">
-                <h4>2. Conversational Prompt Agent Best Practices</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li>Prompt engineering for agents is different from single-turn chat</li>
-                    <li>System prompts need: Who are you? What do you have? How should you work?</li>
-                    <li>Encourage explicit reasoning before tool calls</li>
-                    <li>Iterative testing and refinement essential</li>
-                    <li>Treat prompts as code: version-controlled, tested, reviewed</li>
-                </ul>
-            </div>
-
-            <div class="sidebar">
-                <h4>3. Construction Industry AI Use Cases</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li>RFI/submittal automation</li>
-                    <li>Safety documentation</li>
-                    <li>Bid/proposal writing</li>
-                    <li>Client communication</li>
-                    <li>Subcontractor coordination</li>
-                    <li>Code/regulation research</li>
-                    <li>Cross-team coordination</li>
-                </ul>
-            </div>
-
-            <h3>Key Insights from Research</h3>
-            <div class="tip">
-                <strong>CTF for Teaching:</strong> CTF (Context, Task, Format) was chosen as the teaching framework because it's simple and accessible for non-technical construction industry professionals.
-            </div>
-            <div class="tip">
-                <strong>RTCCO/RASCEF Internally:</strong> The agent uses richer frameworks internally to ensure comprehensive prompts, filling in gaps users don't know to ask.
+                <p><strong>ChatGPT:</strong> Custom Instructions or GPT. Limited by lack of persistent memory.</p>
+                <p style="margin-top: 10px;"><strong>Claude:</strong> Projects with creator system prompt. Excellent for long documents.</p>
+                <p style="margin-top: 10px;"><strong>Gemini:</strong> Gems with creator instructions. Good Google integration.</p>
+                <p style="margin-top: 10px;"><strong>Letta:</strong> Full creator capability with persistent memory, tool access, programmatic agent creation.</p>
             </div>
         </div>
 
-        <!-- PHASE 2: SPECIFICATION GATHERING -->
-        <div class="card" id="phase2">
-            <h2>❓ Phase 2: Specification Gathering</h2>
-            <p>The Creator Agent asked clarifying questions to understand requirements:</p>
+        <div class="card" id="process">
+            <h2>📋 The Documented Process</h2>
+            <p>Complete documentation of how Laura worked with Creator Agent to build PEA:</p>
 
-            <h3>Questions Asked by Creator Agent</h3>
-            <div class="sidebar">
-                <h4>Q1: Target AI Platforms?</h4>
-                <p style="color: #a1a1aa;"><strong>Answer:</strong> Platform-agnostic with ability to adapt based on user preference. Should support ChatGPT, Claude, Gemini, Copilot, DeepSeek.</p>
-            </div>
+            <h3><span class="phase-marker">Phase 1</span>🔬 Research</h3>
+            <p>Creator researched: Prompt engineering frameworks (CTF, RTCCO, RASCEF, PRIME, 5C, etc.), conversational agent best practices, construction industry AI use cases (59 use cases identified).</p>
 
-            <div class="sidebar">
-                <h4>Q2: Branding Requirements?</h4>
-                <p style="color: #a1a1aa;"><strong>Answer:</strong> Reference SDSU AI Club and BIA SCC AI Subcommittee for credit and as contact point.</p>
-            </div>
+            <h3><span class="phase-marker">Phase 2</span>📊 Analysis</h3>
+            <p>Creator provided decision matrix: CTF for teaching (simple), RTCCO internally (comprehensive), construction awareness, platform-agnostic design, adaptive tone.</p>
 
-            <div class="sidebar">
-                <h4>Q3: Demo Use Case?</h4>
-                <p style="color: #a1a1aa;"><strong>Answer:</strong> No specific case - should handle any construction industry scenario. Can mention Star Flooring & Remodeling as example.</p>
-            </div>
+            <h3><span class="phase-marker">Phase 3</span>❓ Clarification</h3>
+            <p>Creator asked: Target platforms? Branding? Demo use case? Tone preference?</p>
 
-            <div class="sidebar">
-                <h4>Q4: Tone Preference?</h4>
-                <p style="color: #a1a1aa;"><strong>Answer:</strong> Adaptive - tuned to user. Can be professional OR casual based on what the member prefers.</p>
-            </div>
+            <h3><span class="phase-marker">Phase 4</span>📝 Specifications</h3>
+            <p>Laura added: Transfer capability, migration features, demo website, resource guides, email templates, agent self-initialization.</p>
 
-            <div class="sidebar">
-                <h4>Q5: Additional Features Needed?</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Transfer Feature:</strong> Members won't adopt Letta - need standalone solutions they can use elsewhere</li>
-                    <li><strong>Migration Feature:</strong> ChatGPT → Claude migration support is common request</li>
-                    <li><strong>Demo Website:</strong> GitHub Pages site with all information</li>
-                    <li><strong>Email Templates:</strong> HTML formatted for easy sharing</li>
-                </ul>
-            </div>
+            <h3><span class="phase-marker">Phase 5</span>🏗️ Agent Creation</h3>
+            <p>Creator built PEA via Letta SDK: agent-8a806865-5c55-49c2-ac89-3b2f4963a47e. 10 tools attached, 20 memory blocks created.</p>
+
+            <h3><span class="phase-marker">Phase 6</span>🌐 Website Build</h3>
+            <p>Creator built demo site: lwetherhold/pea-demo-site on GitHub Pages. 8 tabs with comprehensive content.</p>
+
+            <h3><span class="phase-marker">Phase 7</span>📄 Documentation</h3>
+            <p>Creator documented everything: PEA-documentation, PEA-info, PEA-todos memory blocks.</p>
         </div>
 
-        <!-- PHASE 3: AGENT CREATION -->
-        <div class="card" id="phase3">
-            <h2>🛠️ Phase 3: Agent Creation</h2>
-            <p>The Creator Agent designed and built the Prompt Engineering Agent:</p>
-
-            <h3>Agent Architecture Designed</h3>
-            <div class="sidebar">
-                <h4>Core Identity</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Name:</strong> PEA (Prompt Engineering Agent)</li>
-                    <li><strong>Type:</strong> Conversational prompt engineering specialist</li>
-                    <li><strong>Mode:</strong> Interview-style with clarifying questions</li>
-                    <li><strong>Tone:</strong> Adaptive (professional OR casual)</li>
-                </ul>
-            </div>
-
-            <div class="sidebar">
-                <h4>Platform Awareness</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li>ChatGPT - OpenAI's platform</li>
-                    <li>Claude - Anthropic's platform</li>
-                    <li>Gemini - Google's platform</li>
-                    <li>Copilot - Microsoft's platform</li>
-                    <li>DeepSeek - Open-source option</li>
-                </ul>
-            </div>
-
-            <div class="sidebar">
-                <h4>Construction Industry Awareness</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li>Common workflows (RFI, submittals, change orders, bids)</li>
-                    <li>Industry terminology</li>
-                    <li>Stakeholder types (GC, subcontractor, architect, owner, inspector)</li>
-                    <li>Project types (residential, commercial, TI, new construction)</li>
-                </ul>
-            </div>
-
-            <h3>Memory Blocks Created (20 total)</h3>
-            <div class="prompt-box"><strong>Core Identity (4):</strong> persona, human, guardrails, welcome_message
-<strong>Knowledge (5):</strong> frameworks, construction_glossary, platform_knowledge, construction_templates, prompt_library
-<strong>Guides (4):</strong> transfer_formats, migration_templates, troubleshooting_guide, examples_showcase
-<strong>Working Memory (6):</strong> user_preferences, active_context, scratchpad, session_log, lessons_learned, maintenance_log</div>
-
-            <h3>Tools Attached</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li><strong>Memory tools:</strong> memory, memory_replace, core_memory_replace, core_memory_append</li>
-                <li><strong>Search tools:</strong> conversation_search, archival_memory_search, archival_memory_insert</li>
-                <li><strong>Web tools:</strong> web_search, run_code_with_tools</li>
-                <li><strong>Document tools:</strong> read_github_file, fetch_webpage</li>
-            </ul>
-
-            <h3>Agent Creation Method</h3>
-            <div class="warning">
-                <strong>⚠️ Note:</strong> The initial attempt using create_letta_agent tool failed with an AttributeError. The Creator Agent pivoted to using the letta_client Python SDK directly via run_code_with_tools, which succeeded.
-            </div>
-        </div>
-
-        <!-- PHASE 4: WEBSITE BUILD -->
-        <div class="card" id="phase4">
-            <h2>🌐 Phase 4: Website Build</h2>
-            <p>The Creator Agent built a comprehensive demo website:</p>
-
-            <h3>Website Structure Created</h3>
-            <div class="sidebar">
-                <h4>Repository Setup</h4>
-                <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.6;">
-                    <li><strong>Platform:</strong> GitHub Pages</li>
-                    <li><strong>Repository:</strong> lwetherhold/pea-demo-site</li>
-                    <li><strong>URL:</strong> https://lwetherhold.github.io/pea-demo-site/</li>
-                </ul>
-            </div>
-
-            <h3>Tabs Built</h3>
-            <ol class="step-list">
-                <li><strong>Overview</strong> - Key features, quick start guide</li>
-                <li><strong>Prompts Log</strong> - All prompts from creation process</li>
-                <li><strong>Tidbits Guide Hub</strong> - Links to all resource guides</li>
-                <li><strong>Email Guide</strong> - HTML template + raw text version</li>
-                <li><strong>Agent Transfer</strong> - Platform-specific export formats (5 platforms)</li>
-                <li><strong>Migration</strong> - Cross-platform migration guides (6 pathways)</li>
-                <li><strong>PEA Memory</strong> - All 20 memory blocks documented</li>
-                <li><strong>Demo Follow-Along</strong> - Step-by-step demo script</li>
-            </ol>
-
-            <h3>Key Features Implemented</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li>Tab navigation with active state</li>
-                <li>Collapsible sections for platform-specific content</li>
-                <li>Copy-to-clipboard buttons on all code blocks</li>
-                <li>Responsive design for mobile/desktop</li>
-                <li>Dark mode styling consistent with guides</li>
-            </ul>
-        </div>
-
-        <!-- PHASE 5: DOCUMENTATION -->
-        <div class="card" id="phase5">
-            <h2>📄 Phase 5: Documentation</h2>
-            <p>The Creator Agent documented everything for future reference:</p>
-
-            <h3>Resource Guides Created</h3>
-            <ol class="step-list">
-                <li><strong>guide-letta.html</strong> - How to use Letta (account creation, dashboard, import, memory, tools)</li>
-                <li><strong>guide-creator.html</strong> - Using a Creator Agent (this document)</li>
-                <li><strong>guide-create-creator.html</strong> - Creating a Creator Agent</li>
-                <li><strong>guide-setup-pea.html</strong> - Setting up the PEA</li>
-            </ol>
-
-            <h3>Navigation Between Guides</h3>
-            <p>All guides are linked with previous/next buttons at the bottom of each page, allowing users to follow the complete workflow.</p>
-
-            <div class="tip">
-                <strong>💡 Self-Documenting:</strong> The Creator Agent documented its own process while building, making it easy to replicate for future projects.
-            </div>
-        </div>
-
-        <!-- KEY DECISIONS & RATIONALE -->
         <div class="card" id="decisions">
-            <h2>🎯 Key Decisions & Rationale</h2>
-            <p>The table below documents major decisions made during the creation process:</p>
+            <h2>💡 What We Did, How, Why</h2>
 
-            <table class="decision-table">
-                <tr><th>Decision</th><th>Rationale</th></tr>
-                <tr><td><strong>CTF as teaching framework</strong></td><td>Simple, 3-part structure easy for beginners to grasp</td></tr>
-                <tr><td><strong>RTCCO/RASCEF internally</strong></td><td>Ensures comprehensive prompts, fills gaps users don't know to ask</td></tr>
-                <tr><td><strong>Conversational interview style</strong></td><td>Transforms agent from template filler to true prompt engineer</td></tr>
-                <tr><td><strong>Construction domain awareness</strong></td><td>Tailors prompts to industry terminology and workflows</td></tr>
-                <tr><td><strong>Platform-agnostic + specialization</strong></td><td>Flexibility for users on any AI platform</td></tr>
-                <tr><td><strong>Adaptive tone</strong></td><td>Professional OR casual based on user preference</td></tr>
-                <tr><td><strong>Transfer capability</strong></td><td>Members won't adopt Letta - need standalone solutions</td></tr>
-                <tr><td><strong>Migration assistance</strong></td><td>Common request to move ChatGPT → Claude</td></tr>
-                <tr><td><strong>20 memory blocks</strong></td><td>Comprehensive knowledge storage organized by category</td></tr>
-            </table>
-
-            <h3>What We Did, How We Did It, Why</h3>
-            <div class="prompt-box"><strong>WHAT:</strong> Built a Prompt Engineering Agent with full documentation, demo site, and transfer capabilities.
-
-<strong>HOW:</strong> 
-1. Research phase → gathered frameworks and best practices
-2. Specification → iterative clarification with Laura
-3. Architecture design → system prompt, memory, tools
-4. API creation → direct Letta SDK calls
-5. Website build → HTML/CSS/JS via GitHub API
-6. Documentation → resource guides + memory blocks
-
-<strong>WHY:</strong> 
-- BIA members need prompt engineering help
-- Most won't adopt Letta platform
-- Needed standalone solutions they can use elsewhere
-- Demo for SDSU AI Club to present to BIA</div>
-        </div>
-
-        <!-- ACTUAL PROMPTS USED -->
-        <div class="card" id="prompts">
-            <h2>💬 Actual Prompts Used</h2>
-            <p>Here are the actual prompts Laura sent to the Creator Agent during the process:</p>
-
-            <h3>Prompt #1: Initial Request</h3>
-            <div class="prompt-box">Create a prompt engineering agent for demo to BIA SCC AI Subcommittee. Agent acts as personal prompt engineering assistant. Members can talk casually and dump large text. Desires formatted perfectly for any AI platform. Demo for SDSU AI Club to BIA members.</div>
-
-            <h3>Prompt #2: Full Specifications</h3>
-            <div class="prompt-box">Here are the specifications:
-
-1. Demo website - comprehensive with all information
-2. Tidbit guides - how to use Letta, how to use Creator agent, how to create Creator agent, how to set up PEA
-3. Agent transfer feature - so members can use on their preferred platform
-4. Migration features - ChatGPT → Claude, etc.
-
-Include:
-- Email template for sending info
-- Morsel slideshow for demo presentation
-- "Easy demo follow-along" site
-- Agent self-initialization (send system message to new agent, agent uses memory tool to set up)</div>
-
-            <h3>Prompt #3: Clarification Answers</h3>
-            <div class="prompt-box">Q: Target AI platforms?
-A: Platform-agnostic with ability to adapt based on user
-
-Q: Branding?
-A: Reference SDSU AI Club and BIA SCC AI Subcommittee
-
-Q: Demo use case?
-A: No specific case - handle any. Can mention Star Flooring & Remodeling
-
-Q: Tone?
-A: Tuned to user - professional OR casual</div>
-
-            <h3>Prompt #4: Demo Follow-Along Request</h3>
-            <div class="prompt-box">Create an "easy demo follow-along" section on the website. Should be step-by-step instructions that someone can follow during a live demo. Include example prompts they could try.</div>
+            <div class="prompt-box">CTF Framework → Teaching: Simple 3-part structure for beginners
+RTCCO internally → Ensures comprehensive prompts, fills gaps
+Construction awareness → Tailors to BIA audience terminology
+Transfer capability → Members won't adopt Letta specifically
+Migration features → ChatGPT→Claude is common request
+Demo website → Tangible demo artifact for presentation
+Resource guides → Enables others to replicate the process</div>
 
             <div class="tip">
-                <strong>💡 Pattern:</strong> Notice how prompts start broad, then get specific. This allows the Creator Agent to research and propose solutions before locking in details.
+                <strong>The Key Insight:</strong> Creator didn't just build an agent - it researched, analyzed, asked questions, gathered specs, executed the build, created a website, and documented everything.
             </div>
         </div>
 
-        <!-- BEST PRACTICES -->
         <div class="card" id="best-practices">
-            <h2>✅ Best Practices for Working with Creator Agents</h2>
-
-            <h3>Do's</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li><strong>Start broad, then narrow:</strong> Give high-level goals first, let Creator research, then provide specifics</li>
-                <li><strong>Answer clarifying questions thoroughly:</strong> Creator's questions reveal important decisions</li>
-                <li><strong>Trust the research:</strong> Creator Agents know frameworks and best practices you may not</li>
-                <li><strong>Provide context:</strong> Tell Creator about your audience, constraints, and goals</li>
-                <li><strong>Iterate openly:</strong> Be willing to refine based on Creator's suggestions</li>
-                <li><strong>Document as you go:</strong> Ask Creator to document decisions and rationale</li>
-                <li><strong>Test outputs:</strong> Try the created agent and report back for refinements</li>
-            </ul>
-
-            <h3>Don'ts</h3>
-            <ul style="margin-left: 20px; color: #a1a1aa; line-height: 1.8;">
-                <li><strong>Don't restrict research phase:</strong> Let Creator explore before jumping to solutions</li>
-                <li><strong>Don't skip specification:</strong> Vague requirements lead to vague agents</li>
-                <li><strong>Don't ignore platform constraints:</strong> Creator knows what's possible where</li>
-                <li><strong>Don't expect magic:</strong> Great agents require iterative collaboration</li>
-                <li><strong>Don't forget documentation:</strong> Future-you will thank present-you</li>
-            </ul>
+            <h2>✅ Best Practices</h2>
+            <ol class="step-list">
+                <li><strong>Start with Goal, Not Solution</strong> - Describe what you need, let Creator find the approach</li>
+                <li><strong>Answer Questions Thoroughly</strong> - Clarifying questions shape the outcome</li>
+                <li><strong>Be Open to Research</strong> - Creator may discover best practices you didn't know</li>
+                <li><strong>Iterate on Specifications</strong> - Refinement is normal and expected</li>
+                <li><strong>Ask for Explanation</strong> - Request rationale for decisions you don't understand</li>
+                <li><strong>Document Together</strong> - Ask Creator to document the process</li>
+            </ol>
 
             <div class="warning">
-                <strong>⚠️ Common Pitfall:</strong> Jumping straight to "create an agent that does X" without allowing research and specification phases. This often results in agents that technically work but don't provide real value.
+                <strong>⚠️ Common Mistakes:</strong> Being too prescriptive early, skipping clarification questions, ignoring platform context, not iterating.
             </div>
         </div>
 
-        <!-- KEY INSIGHT (KEPT FROM ORIGINAL) -->
-        <div class="card">
-            <h2>💡 Key Insight</h2>
-            <p>The most important part of working with a Creator Agent is being specific about what you need while remaining open to the agent's suggestions and research. The Creator Agent knows best practices you might not be aware of!</p>
-        </div>
-
-        <!-- NAVIGATION -->
         <div class="nav-buttons">
             <a href="guide-letta.html" class="btn">← Previous: How to Use Letta</a>
             <a href="guide-create-creator.html" class="btn">Next: Creating a Creator Agent →</a>
