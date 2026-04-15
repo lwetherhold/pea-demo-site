@@ -37,6 +37,15 @@
             transform: translateY(-2px);
             transition: all 0.2s ease;
         }
+        
+        .demo-subtab { padding: 10px 20px; background: rgba(22, 33, 62, 0.8); border: none; color: #a1a1aa; cursor: pointer; border-radius: 8px 8px 0 0; margin-right: 5px; }
+        .demo-subtab.active { background: rgba(233, 69, 96, 0.3); color: #e94560; }
+        .demo-content { display: none; }
+        .demo-content.active { display: block; }
+        .copy-box { background: #0d1117; border-radius: 8px; padding: 15px; margin: 10px 0; cursor: pointer; border: 1px solid rgba(233, 69, 96, 0.3); transition: all 0.2s; }
+        .copy-box:hover { border-color: #e94560; background: #161b22; }
+        .copy-box:active { transform: scale(0.98); }
+        .copy-toast { position: fixed; bottom: 20px; right: 20px; background: #e94560; color: white; padding: 10px 20px; border-radius: 8px; opacity: 0; transition: opacity 0.3s; }
         </style>
 </head>
 <body>
@@ -274,45 +283,110 @@ Typical use cases: [List what they use AI for - RFIs, bids, emails, etc.]</div>
             </div>
         </div>
 
-        <div id="demo-follow" class="tab-content">
+                <div id="demo-follow" class="tab-content">
             <div class="card">
-                <h2>🎯 Easy Demo Follow-Along</h2>
-                <p>Follow these steps during the live demo presentation.</p>
+                <h2>🎯 Demo Follow-Along</h2>
+                <p>Everything you need for the live demo presentation.</p>
             </div>
-            <div class="card">
-                <h3>Demo Script</h3>
-                <ol class="step-list">
-                    <li><strong>Introduction (2 min)</strong> - Introduce SDSU AI Club and BIA SCC AI Subcommittee collaboration</li>
-                    <li><strong>Problem Statement (2 min)</strong> - Why prompt engineering matters for construction professionals</li>
-                    <li><strong>Live Demo (5 min)</strong> - Show PEA in action:
-                        <ul style="margin-top: 10px; margin-left: 20px; color: #a1a1aa;">
-                            <li>Start with a casual request: "I need to write an RFI about conflicting structural details"</li>
-                            <li>Show how PEA asks clarifying questions</li>
-                            <li>Display the optimized prompt output</li>
-                            <li>Copy to ChatGPT/Claude and show results</li>
-                        </ul>
-                    </li>
-                    <li><strong>Transfer Feature (3 min)</strong> - Show how to transfer PEA to Claude/ChatGPT</li>
-                    <li><strong>Q&A (5 min)</strong> - Answer questions from BIA members</li>
-                </ol>
+
+            <!-- Sub-tabs for different demo modes -->
+            <div style="margin-bottom: 20px;">
+                <button class="demo-subtab active" onclick="showDemoTab('live-demo')">🎬 Live Demo Script</button>
+                <button class="demo-subtab" onclick="showDemoTab('meta-demo')">🤖 Meta-Demo: AI Building AI</button>
             </div>
-            <div class="card">
-                <h3>Example Demo Prompts to Try</h3>
-                <div class="prompt-box"><strong>Example 1: RFI Drafting</strong>
-"I need help writing an RFI. The structural drawings show a beam size that doesn't match the architectural plans."</div>
-                <div class="prompt-box"><strong>Example 2: Client Email</strong>
-"Help me write an email to a client explaining why their requested change will delay the project and cost more."</div>
-                <div class="prompt-box"><strong>Example 3: Bid Proposal</strong>
-"I need to write a bid proposal for Star Flooring & Remodeling for a tenant improvement project."</div>
-                <div class="prompt-box"><strong>Example 4: Safety Briefing</strong>
-"Create a prompt for a safety briefing about fall protection for a 5-story commercial building."</div>
+
+            <!-- Live Demo Tab -->
+            <div id="live-demo" class="demo-content active">
+                <div class="card">
+                    <h3>📋 Copy/Paste Demo Script</h3>
+                    <p style="color: #a1a1aa; margin-bottom: 15px;">Click any box to copy the text for live use.</p>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">1. Introduction (2 min)</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"Hi everyone! I'm presenting on behalf of the SDSU AI Club. Today we're going to show you the Prompt Engineering Agent - an AI assistant designed specifically for construction industry professionals. It helps you craft effective prompts for any AI platform - ChatGPT, Claude, Gemini, you name it."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">2. Problem Statement (2 min)</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"The challenge we hear from many in the industry: AI is powerful, but getting it to do what you actually want takes skill. You've probably typed something into ChatGPT and gotten a generic response that wasn't quite right. The Prompt Engineering Agent solves this by asking you the right questions, filling in the gaps you didn't know to mention, and producing prompts that actually work."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">3. Live Demo - Opening Prompt</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"I need help writing an RFI. The structural drawings show a beam size that doesn't match the architectural plans."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">4. After PEA Responds</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"Notice how the agent asked clarifying questions - what type of project, who's receiving the RFI, do we need formal format. It's filling in gaps I didn't even know I should mention."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">5. Demo Prompts to Try</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"Help me write an email to a client explaining why their requested change will delay the project and cost more."</p>
+                    </div>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"I need to write a bid proposal for Star Flooring & Remodeling for a tenant improvement project."</p>
+                    </div>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"Create a prompt for a safety briefing about fall protection for a 5-story commercial building."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">6. Transfer Feature (3 min)</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"Now here's the best part - you don't need to use Letta. The agent can give you a formatted export to paste into Claude Projects or ChatGPT Custom Instructions. Let me show you the Agent Transfer tab..."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">7. Closing</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"That's the Prompt Engineering Agent. It's designed to make AI accessible for construction professionals by doing the hard work of prompt engineering for you. Any questions?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meta-Demo Tab -->
+            <div id="meta-demo" class="demo-content">
+                <div class="card">
+                    <h3>🤖 Meta-Demo: How AI Builds AI</h3>
+                    <p style="color: #a1a1aa; margin-bottom: 15px;">Show the audience how we briefed a Creator Agent to build the Prompt Engineering Agent.</p>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">1. The Original Request</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"I want to prepare a demo for the BIA SCC AI Subcommittee. Create an agent that acts as a personal prompt engineering agent. Members can talk casually and get perfectly formatted prompts for any AI platform."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">2. What the Creator Agent Did</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"The Creator Agent researched prompt engineering frameworks, analyzed construction industry use cases, designed the agent architecture with 19 memory blocks and 14 tools, built this website, created 4 tidbit guides, and wrote transfer/migration documentation - all from that initial request."</p>
+                    </div>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">3. Key Decisions Made</h4>
+                    <ul style="color: #a1a1aa; margin-left: 20px;">
+                        <li><strong style="color: #fff;">CTF Framework:</strong> Simple 3-part structure (Context, Task, Format) for teaching</li>
+                        <li><strong style="color: #fff;">RTCCO internally:</strong> Ensures comprehensive prompts</li>
+                        <li><strong style="color: #fff;">Transfer capability:</strong> Members won't necessarily use Letta</li>
+                        <li><strong style="color: #fff;">Construction awareness:</strong> Tailored to industry terminology</li>
+                    </ul>
+
+                    <h4 style="color: #e94560; margin: 20px 0 10px;">4. Set Up Your Own Creator Agent</h4>
+                    <div class="copy-box" onclick="copyText(this)">
+                        <p>"You are a Creator Agent - an AI that builds AI agents. When given a request, research frameworks and best practices, analyze requirements, design the agent architecture, create the agent with proper system prompt and tools, document the process, and ensure the agent provides real value."</p>
+                    </div>
+                    <p style="color: #a1a1aa; margin-top: 10px;">Paste this into Claude Projects or ChatGPT Custom Instructions to create your own Creator Agent.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Resources for Members</h3>
+                    <p>Direct members to these resources to set up their own systems:</p>
+                    <ul style="color: #a1a1aa; margin: 15px 0 0 20px;">
+                        <li><strong style="color: #fff;">Tidbit Guides tab:</strong> Step-by-step Letta, Creator, and PEA setup</li>
+                        <li><strong style="color: #fff;">Agent Transfer tab:</strong> Copy/paste to Claude, ChatGPT, Gemini</li>
+                        <li><strong style="color: #fff;">Migration tab:</strong> Move context between platforms</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer class="footer">
-        <p>Created by <strong>SDSU AI Club</strong> for <strong>BIA SCC AI Subcommittee</strong></p>
-        <p style="margin-top: 10px;">Questions? Reach out for assistance, collaboration, or opportunities!</p>
     </footer>
 
     <script>
@@ -322,6 +396,33 @@ Typical use cases: [List what they use AI for - RFIs, bids, emails, etc.]</div>
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
         }
-    </script>
+    
+        function showDemoTab(tabId) {
+            document.querySelectorAll('.demo-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.demo-subtab').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyText(element) {
+            const text = element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!');
+            });
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById('copy-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'copy-toast';
+                toast.className = 'copy-toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+        </script>
 </body>
 </html>
