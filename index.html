@@ -2810,7 +2810,31 @@ This block is intentionally empty but available for customization as needed.
                 setTimeout(() => btn.innerText = originalText, 2000);
             });
         }
-        </script>
+        
+
+    function copyAllBlocks() {
+        var blocks = [
+            'block-persona', 'block-human', 'block-guardrails', 'block-welcome',
+            'block-frameworks', 'block-glossary', 'block-platforms', 'block-templates', 'block-library',
+            'block-transfer', 'block-migration', 'block-troubleshooting', 'block-examples',
+            'block-preferences', 'block-context', 'block-scratchpad', 'block-session', 'block-lessons', 'block-maintenance'
+        ];
+
+        var allContent = "=== PEA MEMORY BLOCKS ===\n\n";
+
+        blocks.forEach(function(blockId) {
+            var block = document.getElementById(blockId);
+            if (block) {
+                var blockName = blockId.replace('block-', '').toUpperCase();
+                allContent += "--- " + blockName + "---\n";
+                allContent += block.innerText + "\n\n";
+            }
+        });
+
+        navigator.clipboard.writeText(allContent).then(function() {
+            alert('All 19 memory blocks copied!');
+        });
+    }</script>
         
     </body>
 </html>
